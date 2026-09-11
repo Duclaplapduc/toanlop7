@@ -43,11 +43,11 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding-top:28px}
 </style>
 </head>
 <body>
-<header><div class="head"><div class="logo">7</div><div><h1>Toán lớp 7</h1><div class="sub">Kết nối tri thức • Học – luyện – kiểm tra</div></div></div></header>
+<header><div class="head"><div class="logo">7</div><div><h1>Toán lớp 7</h1><div class="sub">Kết nối tri thức • V4 • Học – luyện – ôn tập – kiểm tra</div></div></div></header>
 <main>
 <section id="home">
 <div class="hero">
-<h2>Học Toán 7 từng bài, dễ hiểu hơn 📘</h2>
+<h2>Toán 7 • Kết nối tri thức <span style='font-size:14px;background:#fff;color:#3457d5;padding:4px 8px;border-radius:999px'>V4</span></h2>
 <p>Bám theo thứ tự 37 bài của SGK Kết nối tri thức. Mỗi bài có kiến thức trọng tâm, ví dụ, luyện tập và kiểm tra nhanh.</p>
 <div class="progressbox"><div style="display:flex;justify-content:space-between;margin-bottom:7px"><b>Tiến độ</b><span id="progressText">0/37 bài</span></div><div class="bar"><span id="progressBar"></span></div></div>
 </div>
@@ -110,12 +110,54 @@ function openLesson(ci,n){
 function goHome(){document.getElementById('lessonView').classList.add('hidden');document.getElementById('home').classList.remove('hidden');render();window.scrollTo(0,0)}
 function renderFullLesson(n){
  const d=LESSONS[n];
+ if(n===1){ renderLesson1Rich(); return; }
  let html=`<h3 class="section-title">1. Kiến thức trọng tâm</h3><div class="card"><ul style="line-height:1.8">${d.knowledge.map(x=>`<li>${x}</li>`).join('')}</ul></div>
  <h3 class="section-title">2. Ví dụ dễ hiểu</h3>${d.examples.map(x=>`<div class="example">${x}</div>`).join('<div style="height:8px"></div>')}
  <div class="note" style="margin-top:12px"><b>Mẹo nhớ:</b> ${d.tip}</div>
  <h3 class="section-title">3. Kiểm tra nhanh • 10 câu</h3><div id="quiz"></div><div id="result"></div>`;
  document.getElementById('lessonContent').innerHTML=html; renderQuiz(n);
 }
+
+function renderLesson1Rich(){
+ const html=`
+ <div class="card" style="margin-top:14px"><h3>🎯 Mục tiêu</h3><p>Nhận biết số hữu tỉ; so sánh hai số hữu tỉ; nhận biết số hữu tỉ dương, âm, số 0; biểu diễn số hữu tỉ trên trục số.</p></div>
+ <div class="note" style="margin-top:14px"><b>Cách học:</b> Học từng mục → xem ví dụ → tự làm bài ngay → mở hướng dẫn khi cần → cuối bài làm kiểm tra. Nội dung luyện được biên soạn theo các dạng của SBT, không chép nguyên trang sách.</div>
+ <h3 class="section-title">1. Số hữu tỉ</h3><div class="card"><p>Số hữu tỉ là số viết được dưới dạng <b>a/b</b>, với a, b là số nguyên và b ≠ 0. Tập hợp số hữu tỉ kí hiệu <b>Q</b>.</p><div class="example"><b>Ví dụ:</b> 3 = 3/1; −2 = −2/1; 0,5 = 1/2; −0,75 = −3/4. Tất cả đều là số hữu tỉ.</div></div>
+ <h3 class="section-title">2. Thứ tự trong tập hợp các số hữu tỉ</h3><div class="card"><p>Hai số hữu tỉ luôn so sánh được. Có thể quy đồng mẫu, đưa về cùng tử khi thuận tiện hoặc đổi sang số thập phân.</p>
+ <div class="example"><b>Ví dụ 1:</b> 5/7 &gt; 3/7 vì cùng mẫu 7 và 5 &gt; 3.</div>
+ <div class="example" style="margin-top:8px"><b>Ví dụ 2:</b> So sánh −2/3 và −3/4.<br>−2/3 = −8/12; −3/4 = −9/12. Vì −8 &gt; −9 nên <b>−2/3 &gt; −3/4</b>.</div>
+ <div class="example" style="margin-top:8px"><b>Ví dụ 3:</b> −5/8 &lt; 2/9 vì số âm luôn nhỏ hơn số dương.</div>
+ <div class="note" style="margin-top:10px"><b>Mẹo nhớ:</b> Số dương &gt; 0 &gt; số âm. Với hai số âm, số gần 0 hơn là số lớn hơn.</div></div>
+ <h3 class="section-title">3. Số hữu tỉ dương – âm – số 0</h3><div class="card"><p>x &gt; 0: số hữu tỉ dương.<br>x &lt; 0: số hữu tỉ âm.<br>x = 0: không dương cũng không âm.</p><div class="example"><b>Ví dụ:</b> 4/5 dương; −7/10 âm; 0 không dương cũng không âm.</div></div>
+ <h3 class="section-title">4. Biểu diễn trên trục số</h3><div class="card"><p>Mỗi số hữu tỉ được biểu diễn bởi một điểm trên trục số. Số lớn hơn nằm bên phải.</p><div style="font-family:monospace;text-align:center;padding:14px;overflow:auto">←──●────●────●────●────●──→<br>−1&nbsp;&nbsp;−1/2&nbsp;&nbsp;0&nbsp;&nbsp;1/2&nbsp;&nbsp;1</div><div class="example"><b>Ví dụ:</b> Muốn biểu diễn 3/4, chia đoạn từ 0 đến 1 thành 4 phần bằng nhau rồi lấy điểm thứ 3 về phía bên phải 0.</div></div>
+ <h3 class="section-title">5. Làm ngay sau từng phần</h3><div class="card">
+ <p><b>Bài A.</b> Phân loại: −3/5; 7/9; 0; −1,2; 2.</p><details><summary><b>Xem hướng dẫn</b></summary><p>−3/5, −1,2 là số âm; 7/9, 2 là số dương; 0 không dương cũng không âm.</p></details>
+ <p><b>Bài B.</b> So sánh −5/6 và −7/9.</p><details><summary><b>Xem hướng dẫn</b></summary><p>−5/6 = −15/18; −7/9 = −14/18 ⇒ −5/6 &lt; −7/9.</p></details>
+ <p><b>Bài C.</b> Sắp xếp −1/2; 3/4; 0; −5/4 tăng dần.</p><details><summary><b>Xem đáp án</b></summary><p>−5/4 &lt; −1/2 &lt; 0 &lt; 3/4.</p></details></div>
+ <h3 class="section-title">6. Luyện tập theo định hướng SBT</h3><div class="note">Bám các dạng của SBT Bài 1: đúng/sai, kí hiệu thuộc tập hợp, phân loại số hữu tỉ, so sánh, đọc và biểu diễn trên trục số, bài toán thực tế. Các câu trên web được biên soạn lại để học sinh luyện trực tiếp.</div>
+ <div class="card" style="margin-top:10px"><p><b>Dạng 1:</b> Nhận biết và phân loại số hữu tỉ.</p><p><b>Dạng 2:</b> So sánh các số hữu tỉ.</p><p><b>Dạng 3:</b> Đọc và biểu diễn điểm trên trục số.</p><p><b>Dạng 4:</b> Sắp xếp các tỉ số trong tình huống thực tế.</p></div>
+ 
+<h3 class="section-title">7. Ôn luyện theo dạng bài</h3>
+<div class="card">
+ <p><b>Dạng 1 – Đúng/Sai.</b> Xét các phát biểu: (a) Mọi số nguyên đều là số hữu tỉ; (b) Mọi số hữu tỉ đều là số nguyên; (c) 0 là số hữu tỉ; (d) số hữu tỉ âm nhỏ hơn 0.</p>
+ <details><summary><b>Xem đáp án & giải thích</b></summary><p>a) Đúng vì n=n/1. b) Sai, chẳng hạn 1/2 không là số nguyên. c) Đúng vì 0=0/1. d) Đúng theo định nghĩa.</p></details>
+ <hr style="border:0;border-top:1px solid var(--line)">
+ <p><b>Dạng 2 – Thuộc/không thuộc.</b> Điền ∈ hoặc ∉: −7 … Q; −7 … Z; −3/5 … Z; −3/5 … Q.</p>
+ <details><summary><b>Xem đáp án</b></summary><p>−7 ∈ Q; −7 ∈ Z; −3/5 ∉ Z; −3/5 ∈ Q.</p></details>
+ <hr style="border:0;border-top:1px solid var(--line)">
+ <p><b>Dạng 3 – So sánh.</b> So sánh 57/2021 và 59/2021; −19/35 và −13/21.</p>
+ <details><summary><b>Xem hướng dẫn</b></summary><p>Cặp đầu cùng mẫu nên 57/2021 &lt; 59/2021. Cặp thứ hai quy đồng hoặc nhân chéo rồi so sánh cẩn thận dấu âm.</p></details>
+ <hr style="border:0;border-top:1px solid var(--line)">
+ <p><b>Dạng 4 – Trục số.</b> Hãy tự vẽ trục số và biểu diễn −4/5 và 1/2 trên cùng trục số.</p>
+ <details><summary><b>Gợi ý</b></summary><p>Có thể chia đơn vị thành 10 phần bằng nhau: −4/5=−8/10 và 1/2=5/10.</p></details>
+ <hr style="border:0;border-top:1px solid var(--line)">
+ <p><b>Dạng 5 – Vận dụng.</b> Bốn bạn có tỉ lệ hoàn thành lần lượt 3/5; 0,75; 2/3; 7/10. Sắp xếp từ thấp đến cao.</p>
+ <details><summary><b>Xem đáp án</b></summary><p>3/5=0,6; 2/3≈0,667; 7/10=0,7; 0,75=0,75 ⇒ 3/5 &lt; 2/3 &lt; 7/10 &lt; 0,75.</p></details>
+</div>
+<h3 class="section-title">8. Tự kiểm tra cuối bài • 10 câu</h3><div id="quiz"></div><div id="result"></div>`;
+ document.getElementById('lessonContent').innerHTML=html; renderQuiz(1);
+}
+
 function renderPlaceholder(n,title){
  document.getElementById('lessonContent').innerHTML=`<div class="card" style="margin-top:14px"><h3>${title}</h3><p>Bài này thuộc các chương tiếp theo. Khung bài đã sẵn sàng và sẽ được bổ sung ở bản sau.</p><button class="primary" onclick="markDone(${n})">Đánh dấu đã học</button></div>`;
 }
