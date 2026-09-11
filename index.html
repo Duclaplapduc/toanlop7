@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Toán 7 • V8 • Kết nối tri thức</title>
+<title>Toán 7 • V9 • Kết nối tri thức</title>
 <style>
 :root{--bg:#f6f8fc;--card:#fff;--ink:#182033;--muted:#667085;--brand:#3457d5;--ok:#138a55;--bad:#c43b3b;--line:#e6eaf2}
 *{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink)}
@@ -43,12 +43,12 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding-top:28px}
 </style>
 </head>
 <body>
-<header><div class="head"><div class="logo">7</div><div><h1>Toán lớp 7</h1><div class="sub">Kết nối tri thức • V8 • Học – luyện – ôn tập – kiểm tra</div></div></div></header>
+<header><div class="head"><div class="logo">7</div><div><h1>Toán lớp 7</h1><div class="sub">Kết nối tri thức • V9 • Học – luyện – ôn tập – kiểm tra</div></div></div></header>
 <main>
 <section id="home">
 <div class="hero">
-<h2>Toán 7 • Kết nối tri thức <span style='font-size:14px;background:#fff;color:#3457d5;padding:4px 8px;border-radius:999px'>V8</span></h2>
-<p>Bám theo thứ tự 37 bài của SGK Kết nối tri thức. <b>V8 đã hoàn thiện cả năm Bài 1–37</b> theo SGK + SBT Kết nối tri thức, có kiến thức, ví dụ, luyện theo SBT, tự luyện và kiểm tra.</p>
+<h2>Toán 7 • Kết nối tri thức <span style='font-size:14px;background:#fff;color:#3457d5;padding:4px 8px;border-radius:999px'>V9</span></h2>
+<p>Bám theo thứ tự 37 bài của SGK Kết nối tri thức. <b>V9 đã hoàn thiện cả năm Bài 1–37</b> theo SGK + SBT Kết nối tri thức, có kiến thức, ví dụ, luyện theo SBT, tự luyện và kiểm tra.</p>
 <div class="note" style="margin:12px 0"><b>Nguồn học:</b> SGK Toán 7 Tập 1–2 và Sách bài tập Toán 7 Tập 1–2, bộ Kết nối tri thức. Bài tự luyện trên web được biên soạn tương tự để học sinh tự làm.</div><div class="progressbox"><div style="display:flex;justify-content:space-between;margin-bottom:7px"><b>Tiến độ</b><span id="progressText">0/37 bài</span></div><div class="bar"><span id="progressBar"></span></div></div>
 </div>
 <div class="tabs"><button class="tab active" onclick="filterPart(0,this)">Cả năm</button><button class="tab" onclick="filterPart(1,this)">Tập 1</button><button class="tab" onclick="filterPart(2,this)">Tập 2</button></div>
@@ -62,7 +62,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding-top:28px}
 </div>
 <div id="lessonContent"></div>
 </section>
-<footer>Web học Toán 7 • V8 • SGK + SBT + tự luyện</footer>
+<footer>Web học Toán 7 • V9 • SGK + SBT + tự luyện</footer>
 </main>
 
 <script>
@@ -127,19 +127,50 @@ function renderFullLesson(n){
 function detailBlock(label, body){
  return `<details><summary>${label}</summary><div style="padding:8px 2px;line-height:1.65">${body}</div></details>`;
 }
+function sbtHint(d, item, i){
+  const key=(item||'').toLowerCase();
+  if(key.includes('tìm x') || key.includes('tìm số') || key.includes('tìm hai') || key.includes('tìm ba'))
+    return 'Xác định dữ kiện đã cho, lập đẳng thức hoặc tỉ lệ thích hợp rồi biến đổi từng bước. Kiểm tra kết quả bằng cách thay lại điều kiện ban đầu.';
+  if(key.includes('tỉ lệ thuận'))
+    return 'Kiểm tra tỉ số y/x có không đổi hay không. Nếu có, đặt y = ax và tìm hệ số a từ một cặp giá trị đã biết.';
+  if(key.includes('tỉ lệ nghịch'))
+    return 'Kiểm tra tích x·y có không đổi hay không. Nếu có, đặt y = a/x rồi tìm hệ số a.';
+  if(key.includes('đa thức') || key.includes('đơn thức'))
+    return 'Thu gọn trước: nhóm các hạng tử cùng bậc, chú ý dấu. Sau đó mới xác định bậc, hệ số hoặc thực hiện phép tính.';
+  if(key.includes('chia'))
+    return 'Xét điều kiện chia, sắp xếp đa thức theo lũy thừa giảm dần rồi thực hiện chia từng bước; cuối cùng kiểm tra A = BQ + R.';
+  if(key.includes('xác suất'))
+    return 'Liệt kê các kết quả có thể. Nếu các kết quả đồng khả năng, đếm số kết quả thuận lợi và chia cho tổng số kết quả.';
+  if(key.includes('biến cố'))
+    return 'Xác định biến cố có luôn xảy ra, không thể xảy ra, hay chỉ có thể xảy ra. Từ đó phân loại chắc chắn / không thể / ngẫu nhiên.';
+  if(key.includes('tam giác') || key.includes('đường') || key.includes('góc'))
+    return 'Vẽ hoặc đọc hình thật rõ, ghi giả thiết – kết luận, đánh dấu các yếu tố bằng nhau/vuông góc/song song rồi chọn đúng định lí hoặc tính chất.';
+  if(key.includes('thể tích') || key.includes('diện tích') || key.includes('hình hộp') || key.includes('lăng trụ'))
+    return 'Đổi các kích thước về cùng đơn vị, xác định đúng diện tích đáy/chu vi đáy/chiều cao rồi mới thay vào công thức.';
+  if(key.includes('số thực') || key.includes('căn') || key.includes('thập phân'))
+    return 'Đưa các số về dạng dễ so sánh/tính toán; với căn bậc hai chú ý căn bậc hai số học luôn không âm.';
+  if(key.includes('lũy thừa'))
+    return 'Đưa về cùng cơ số nếu có thể rồi dùng đúng quy tắc nhân, chia hoặc lũy thừa của lũy thừa; kiểm tra dấu khi cơ số âm.';
+  return 'Đọc kĩ yêu cầu, xác định dạng toán trong phần kiến thức ngay phía trên và làm từng bước. Nếu bí, xem một ví dụ tương tự trước khi mở phần giải.';
+}
+function sbtGuide(d, item, i){
+  const p=d.practice && d.practice.length ? d.practice[i % d.practice.length] : null;
+  if(!p) return 'Dựa vào kiến thức và ví dụ của bài để lập lời giải từng bước, sau đó đối chiếu điều kiện ban đầu.';
+  return `<b>Cách làm mẫu cùng dạng:</b> ${p[0]}<br><b>Hướng giải:</b> ${p[1]}<br><b>Kết quả mẫu:</b> ${p[2]}`;
+}
 function renderStudyLesson(n){
  const d=STUDY[n];
  const quizData = d.quiz || (LESSONS[n] ? LESSONS[n].quiz : []);
  let html=`
  <div class="card" style="margin-top:14px"><h3 style="margin-top:0">🎯 Mục tiêu Bài ${n}</h3><p>${d.goal}</p></div>
- <div class="note" style="margin-top:12px"><b>Cách học:</b> Học kiến thức → xem ví dụ → mở SBT đúng số bài → tự làm → chỉ xem gợi ý khi bí → sau đó làm bài tương tự trên web → kiểm tra cuối bài.</div>
+ <div class="note" style="margin-top:12px"><b>Cách học:</b> Học kiến thức → xem ví dụ → làm SBT → chỉ mở <b>Gợi ý</b> khi bí → sau đó mở <b>Cách giải</b> để đối chiếu → làm bài tương tự → kiểm tra cuối bài.</div>
  <h3 class="section-title">1. Kiến thức trọng tâm</h3>
  <div class="card"><ul style="line-height:1.8">${d.knowledge.map(x=>`<li>${x}</li>`).join('')}</ul></div>
  <h3 class="section-title">2. Ví dụ dễ hiểu</h3>
  ${d.examples.map((x,i)=>`<div class="example"><b>Ví dụ ${i+1}.</b> ${x}</div>`).join('<div style="height:8px"></div>')}
  <h3 class="section-title">3. 📗 Học cùng SBT • ${d.sbt_range}</h3>
- <div class="note">Các số bài dưới đây bám đúng thứ tự của <b>Sách bài tập Toán 7 – Kết nối tri thức, Tập 1</b>. Web nêu trọng tâm từng bài để học sinh mở SBT làm trực tiếp, tránh học thuộc đáp án.</div>
- <div class="card" style="margin-top:10px"><ul style="line-height:1.8">${d.sbt_map.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+ <div class="note"><b>Đã bổ sung ở V9:</b> Mỗi nhóm bài SBT đều có <b>💡 Gợi ý</b> và <b>✅ Cách giải dạng này</b>. Học sinh nên tự làm trong sách trước, rồi mới mở hai mục này.</div>
+ ${d.sbt_map.map((x,i)=>`<div class="card" style="margin-top:10px"><p><b>📘 ${x}</b></p>${detailBlock('💡 Gợi ý',sbtHint(d,x,i))}${detailBlock('✅ Cách giải dạng này',sbtGuide(d,x,i))}</div>`).join('')}
  <h3 class="section-title">4. ✏️ Bài tương tự để tự làm</h3>
  ${d.practice.map((p,i)=>`<div class="card" style="margin-top:10px"><p><b>Bài tự luyện ${i+1}.</b> ${p[0]}</p>${detailBlock('💡 Gợi ý',p[1])}${detailBlock('✅ Đáp án & lời giải',p[2])}</div>`).join('')}
  <h3 class="section-title">5. 📝 Kiểm tra cuối bài • 10 câu</h3>
