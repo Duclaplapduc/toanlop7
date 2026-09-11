@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Toán 7 • V5 • Kết nối tri thức</title>
+<title>Toán 7 • V6 • Kết nối tri thức</title>
 <style>
 :root{--bg:#f6f8fc;--card:#fff;--ink:#182033;--muted:#667085;--brand:#3457d5;--ok:#138a55;--bad:#c43b3b;--line:#e6eaf2}
 *{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink)}
@@ -43,11 +43,11 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding-top:28px}
 </style>
 </head>
 <body>
-<header><div class="head"><div class="logo">7</div><div><h1>Toán lớp 7</h1><div class="sub">Kết nối tri thức • V5 • Học – luyện – ôn tập – kiểm tra</div></div></div></header>
+<header><div class="head"><div class="logo">7</div><div><h1>Toán lớp 7</h1><div class="sub">Kết nối tri thức • V6 • Học – luyện – ôn tập – kiểm tra</div></div></div></header>
 <main>
 <section id="home">
 <div class="hero">
-<h2>Toán 7 • Kết nối tri thức <span style='font-size:14px;background:#fff;color:#3457d5;padding:4px 8px;border-radius:999px'>V5</span></h2>
+<h2>Toán 7 • Kết nối tri thức <span style='font-size:14px;background:#fff;color:#3457d5;padding:4px 8px;border-radius:999px'>V6</span></h2>
 <p>Bám theo thứ tự 37 bài của SGK Kết nối tri thức. Mỗi bài có kiến thức trọng tâm, ví dụ, luyện tập và kiểm tra nhanh.</p>
 <div class="progressbox"><div style="display:flex;justify-content:space-between;margin-bottom:7px"><b>Tiến độ</b><span id="progressText">0/37 bài</span></div><div class="bar"><span id="progressBar"></span></div></div>
 </div>
@@ -62,7 +62,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding-top:28px}
 </div>
 <div id="lessonContent"></div>
 </section>
-<footer>Web học Toán 7 • Nội dung diễn giải và bài tập được biên soạn mới theo chủ đề SGK</footer>
+<footer>Web học Toán 7 • V6 • SGK + SBT + tự luyện</footer>
 </main>
 
 <script>
@@ -161,47 +161,103 @@ function renderLesson1Rich(){
    <div class="example"><b>Ví dụ:</b> Để biểu diễn 3/4, chia đoạn đơn vị từ 0 đến 1 thành 4 phần bằng nhau rồi lấy điểm thứ 3 về bên phải 0.</div>
  </div>
 
- <h3 class="section-title">6. 📗 Luyện theo SBT Bài 1</h3>
- <div class="note">Phần này bám <b>các dạng bài 1.1 → 1.9</b> của SBT Toán 7 Tập 1. Đề trên web được biên soạn lại/cùng dạng để học sinh luyện, không chép nguyên trang sách.</div>
- <div class="card" style="margin-top:10px">
-   <p><b>Dạng 1 • Đúng – Sai</b><br>Xét: (a) Mọi số nguyên đều là số hữu tỉ. (b) Mọi số hữu tỉ đều là số nguyên. (c) 0 là số hữu tỉ.</p>
-   <details><summary>💡 Gợi ý</summary><p>Thử viết số nguyên n dưới dạng phân số có mẫu 1; tìm một phân số không phải số nguyên.</p></details>
-   <details><summary>✅ Đáp án & lời giải</summary><p>(a) Đúng: n=n/1. (b) Sai: chẳng hạn 1/2 là số hữu tỉ nhưng không là số nguyên. (c) Đúng: 0=0/1.</p></details>
-   <hr style="border:0;border-top:1px solid var(--line)">
-   <p><b>Dạng 2 • Điền kí hiệu</b><br>Điền ∈ hoặc ∉: −7 … Q; −7 … Z; −3/5 … Z; −3/5 … Q.</p>
-   <details><summary>💡 Gợi ý</summary><p>Z là tập hợp số nguyên; Q là tập hợp số hữu tỉ.</p></details>
-   <details><summary>✅ Đáp án</summary><p>−7 ∈ Q; −7 ∈ Z; −3/5 ∉ Z; −3/5 ∈ Q.</p></details>
-   <hr style="border:0;border-top:1px solid var(--line)">
-   <p><b>Dạng 3 • Phân loại</b><br>Phân loại: −4/9; 5/6; 0; −1,25; 3 thành số hữu tỉ dương, âm hoặc số 0.</p>
-   <details><summary>💡 Gợi ý</summary><p>So sánh từng số với 0.</p></details>
-   <details><summary>✅ Đáp án</summary><p>Dương: 5/6, 3. Âm: −4/9, −1,25. Số 0: 0.</p></details>
-   <hr style="border:0;border-top:1px solid var(--line)">
-   <p><b>Dạng 4 • So sánh</b><br>So sánh: 57/2021 và 59/2021; −5/6 và −7/9.</p>
-   <details><summary>💡 Gợi ý</summary><p>Cặp đầu cùng mẫu. Cặp sau quy đồng mẫu 18.</p></details>
-   <details><summary>✅ Đáp án & lời giải</summary><p>57/2021 &lt; 59/2021. Với cặp sau: −5/6=−15/18; −7/9=−14/18 nên −5/6 &lt; −7/9.</p></details>
-   <hr style="border:0;border-top:1px solid var(--line)">
-   <p><b>Dạng 5 • Sắp xếp</b><br>Sắp xếp −1/2; 3/4; 0; −5/4 theo thứ tự tăng dần.</p>
-   <details><summary>💡 Gợi ý</summary><p>Tách số âm, 0 và số dương; sau đó so sánh hai số âm.</p></details>
-   <details><summary>✅ Đáp án</summary><p>−5/4 &lt; −1/2 &lt; 0 &lt; 3/4.</p></details>
-   <hr style="border:0;border-top:1px solid var(--line)">
-   <p><b>Dạng 6 • Đọc trục số</b><br>Trên trục số, điểm A ở bên trái 0 một khoảng 3/4 đơn vị. A biểu diễn số nào?</p>
-   <details><summary>💡 Gợi ý</summary><p>Bên trái 0 là số âm.</p></details>
-   <details><summary>✅ Đáp án</summary><p>A biểu diễn số −3/4.</p></details>
-   <hr style="border:0;border-top:1px solid var(--line)">
-   <p><b>Dạng 7 • Biểu diễn trên trục số</b><br>Vẽ trục số rồi biểu diễn −4/5 và 1/2.</p>
-   <details><summary>💡 Gợi ý</summary><p>Có thể đổi −4/5=−8/10 và 1/2=5/10 để chia đơn vị thuận tiện.</p></details>
-   <details><summary>✅ Kiểm tra kết quả</summary><p>−4/5 nằm bên trái 0; 1/2 nằm bên phải 0. Đồng thời −4/5 &lt; 1/2.</p></details>
-   <hr style="border:0;border-top:1px solid var(--line)">
-   <p><b>Dạng 8 • Tìm số hữu tỉ giữa hai số</b><br>Tìm một số hữu tỉ nằm giữa 1/3 và 2/3.</p>
-   <details><summary>💡 Gợi ý</summary><p>Hãy nghĩ đến 1/2 hoặc quy đồng về mẫu 6.</p></details>
-   <details><summary>✅ Đáp án</summary><p>Một đáp án là 1/2 vì 1/3 &lt; 1/2 &lt; 2/3.</p></details>
-   <hr style="border:0;border-top:1px solid var(--line)">
-   <p><b>Dạng 9 • Vận dụng thực tế</b><br>Bốn tỉ lệ hoàn thành là 3/5; 0,75; 2/3; 7/10. Sắp xếp từ thấp đến cao.</p>
-   <details><summary>💡 Gợi ý</summary><p>Đổi các số về dạng thập phân để so sánh.</p></details>
-   <details><summary>✅ Đáp án & lời giải</summary><p>3/5=0,6; 2/3≈0,667; 7/10=0,7; 0,75=0,75. Vậy 3/5 &lt; 2/3 &lt; 7/10 &lt; 0,75.</p></details>
- </div>
+ 
+<h3 class="section-title">6. 📗 Sách bài tập • Bài 1.1 → 1.9</h3>
+<div class="note">
+  Phần này đi theo đúng thứ tự <b>1.1 đến 1.9</b> ở trang 7–8 SBT Toán 7 Tập 1.
+  Đề được diễn đạt gọn lại để học sinh nhìn đề, tự làm trước rồi mới mở gợi ý và lời giải.
+</div>
 
- <h3 class="section-title">7. ✏️ Tự luyện thêm</h3>
+<div class="card" style="margin-top:10px">
+  <h4>📘 Bài 1.1 • Đúng hay sai?</h4>
+  <p>Xét 5 nhận định sau:</p>
+  <p>a) Số hữu tỉ âm nhỏ hơn số hữu tỉ dương.<br>
+     b) Số hữu tỉ âm nhỏ hơn số tự nhiên.<br>
+     c) Số 0 là số hữu tỉ dương.<br>
+     d) Số nguyên âm không phải là số hữu tỉ âm.<br>
+     e) Tập hợp Q chỉ gồm các số hữu tỉ dương và các số hữu tỉ âm.</p>
+  <details><summary>💡 Gợi ý</summary><p>Nhớ rằng 0 không dương, không âm; mọi số nguyên đều là số hữu tỉ.</p></details>
+  <details><summary>✅ Đáp án & giải thích</summary><p>a) Đúng. b) Đúng. c) Sai. d) Sai. e) Sai, vì Q còn chứa số 0.</p></details>
+</div>
+
+<div class="card" style="margin-top:10px">
+  <h4>📘 Bài 1.2 • Điền ∈ hoặc ∉</h4>
+  <p>Điền kí hiệu thích hợp:</p>
+  <p>−7 … N; &nbsp; −7 … Z; &nbsp; −7 … Q; &nbsp; −3/5 … Z; &nbsp; −3/5 … Q.</p>
+  <details><summary>💡 Gợi ý</summary><p>N: số tự nhiên; Z: số nguyên; Q: số hữu tỉ.</p></details>
+  <details><summary>✅ Đáp án</summary><p>−7 ∉ N; −7 ∈ Z; −7 ∈ Q; −3/5 ∉ Z; −3/5 ∈ Q.</p></details>
+</div>
+
+<div class="card" style="margin-top:10px">
+  <h4>📘 Bài 1.3 • Nối với nhận định đúng</h4>
+  <p>Phân loại các số: 0/(−8); 7/(−5); −2/9; 5/0 theo các nhóm: số hữu tỉ âm, số hữu tỉ dương, không âm cũng không dương, hoặc không phải số hữu tỉ.</p>
+  <details><summary>💡 Gợi ý</summary><p>Phân số có mẫu 0 không xác định. Số 0 không dương cũng không âm.</p></details>
+  <details><summary>✅ Đáp án</summary><p>0/(−8) → không âm cũng không dương; 7/(−5) → số hữu tỉ âm; −2/9 → số hữu tỉ âm; 5/0 → không phải số hữu tỉ.</p></details>
+</div>
+
+<div class="card" style="margin-top:10px">
+  <h4>📘 Bài 1.4 • So sánh số hữu tỉ</h4>
+  <p>a) −57/2021 và 1/6345<br>
+     b) −19/35 và −13/21<br>
+     c) 6/73 và 9/82</p>
+  <details><summary>💡 Gợi ý</summary><p>Câu a xét dấu. Câu b, c có thể nhân chéo vì các mẫu đều dương.</p></details>
+  <details><summary>✅ Đáp án & lời giải</summary>
+    <p>a) −57/2021 &lt; 1/6345.<br>
+       b) −19/35 &gt; −13/21 vì −19×21 = −399 &gt; −455 = −13×35.<br>
+       c) 6/73 &lt; 9/82 vì 6×82 = 492 &lt; 657 = 9×73.</p>
+  </details>
+</div>
+
+<div class="card" style="margin-top:10px">
+  <h4>📘 Bài 1.5 • Vận dụng: tốc độ màn trập</h4>
+  <p>Sắp xếp các thời gian mở màn trập sau từ <b>nhanh nhất đến chậm nhất</b>:
+  1/125; 1/15; 0,125; 1/60; 0,004; 1/4 (giây).</p>
+  <details><summary>💡 Gợi ý</summary><p>Màn trập nhanh hơn tương ứng với thời gian mở nhỏ hơn. Có thể đổi tất cả sang số thập phân.</p></details>
+  <details><summary>✅ Đáp án & lời giải</summary><p>0,004 &lt; 1/125 &lt; 1/60 &lt; 1/15 &lt; 0,125 &lt; 1/4. Vì vậy thứ tự nhanh → chậm chính là thứ tự trên.</p></details>
+</div>
+
+<div class="card" style="margin-top:10px">
+  <h4>📘 Bài 1.6 • Đọc điểm trên trục số</h4>
+  <p>Trên hình 1.3 của SBT, các vạch từ 0 đến 1 chia thành 6 phần bằng nhau. Xác định số hữu tỉ tại A, B, C, D.</p>
+  <div style="font-family:monospace;text-align:center;overflow:auto;padding:12px">
+  A&nbsp;&nbsp;&nbsp;B&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;D<br>
+  ──|──|──|──|──|──|──|──|──→
+  </div>
+  <details><summary>💡 Gợi ý</summary><p>Mỗi khoảng nhỏ bằng 1/6. Đếm số khoảng từ 0 đến từng điểm.</p></details>
+  <details><summary>✅ Đáp án</summary><p>A = −1/2; B = −1/3; C = 1/3; D = 7/6.</p></details>
+</div>
+
+<div class="card" style="margin-top:10px">
+  <h4>📘 Bài 1.7 • Biểu diễn trên trục số</h4>
+  <p>Vẽ một trục số và biểu diễn hai số <b>−4/5</b> và <b>1/2</b>.</p>
+  <details><summary>💡 Gợi ý</summary><p>Chia đơn vị thành các phần bằng nhau; −4/5 nằm bên trái 0, còn 1/2 nằm bên phải 0.</p></details>
+  <details><summary>✅ Kiểm tra kết quả</summary><p>Điểm −4/5 cách 0 bốn phần năm đơn vị về bên trái; điểm 1/2 cách 0 nửa đơn vị về bên phải.</p></details>
+</div>
+
+<div class="card" style="margin-top:10px">
+  <h4>📘 Bài 1.8 • Tìm phân số thỏa điều kiện</h4>
+  <p>Tìm hai phân số có <b>mẫu bằng 7</b>, lớn hơn −3/8 và nhỏ hơn −1/8.</p>
+  <details><summary>💡 Gợi ý</summary><p>Đặt phân số cần tìm là n/7 rồi tìm số nguyên n sao cho −3/8 &lt; n/7 &lt; −1/8.</p></details>
+  <details><summary>✅ Đáp án & lời giải</summary><p>Ta có −2,625 &lt; n &lt; −0,875 nên n = −2 hoặc −1. Hai phân số là <b>−2/7 và −1/7</b>.</p></details>
+</div>
+
+<div class="card" style="margin-top:10px">
+  <h4>📘 Bài 1.9 • Vận dụng: hiệu suất ghi bàn</h4>
+  <p>Dữ liệu 5 mùa giải: 2020–2021: 30 bàn/35 trận; 2019–2020: 25/33; 2018–2019: 36/34; 2017–2018: 34/36; 2016–2017: 37/34.</p>
+  <p>Hiệu suất = số bàn thắng / số trận. Hãy sắp xếp hiệu suất từ bé đến lớn và xác định mùa có hiệu suất tốt nhất.</p>
+  <details><summary>💡 Gợi ý</summary><p>Tính hoặc so sánh các tỉ số: 30/35, 25/33, 36/34, 34/36, 37/34.</p></details>
+  <details><summary>✅ Đáp án & lời giải</summary>
+    <p>25/33 ≈ 0,758;<br>
+       30/35 = 6/7 ≈ 0,857;<br>
+       34/36 = 17/18 ≈ 0,944;<br>
+       36/34 = 18/17 ≈ 1,059;<br>
+       37/34 ≈ 1,088.</p>
+    <p>Thứ tự tăng dần: <b>2019–2020 &lt; 2020–2021 &lt; 2017–2018 &lt; 2018–2019 &lt; 2016–2017</b>.<br>
+       Mùa có hiệu suất tốt nhất: <b>2016–2017</b>.</p>
+  </details>
+</div>
+
+<h3 class="section-title">7. ✏️ Tự luyện thêm</h3>
  <div class="card">
    <p><b>Cơ bản 1.</b> Viết 2 số nguyên dưới dạng số hữu tỉ có mẫu khác 1.</p>
    <details><summary>💡 Gợi ý</summary><p>Nhân cả tử và mẫu của n/1 với cùng một số khác 0.</p></details><details><summary>✅ Ví dụ đáp án</summary><p>2=4/2; −3=−9/3.</p></details>
