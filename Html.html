@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Toán 7 • Kết nối tri thức</title>
+<style>
+:root{--bg:#f6f8fc;--card:#fff;--ink:#182033;--muted:#667085;--brand:#3457d5;--ok:#138a55;--bad:#c43b3b;--line:#e6eaf2}
+*{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.head{max-width:1100px;margin:auto;padding:14px 16px;display:flex;align-items:center;gap:12px}
+.logo{width:42px;height:42px;border-radius:13px;background:var(--brand);color:white;display:grid;place-items:center;font-weight:800;font-size:20px}
+h1{font-size:18px;margin:0} .sub{font-size:12px;color:var(--muted)}
+main{max-width:1100px;margin:auto;padding:18px 14px 60px}
+.hero{background:linear-gradient(135deg,#3457d5,#6f86ed);color:#fff;border-radius:22px;padding:22px;box-shadow:0 12px 30px #3457d524}
+.hero h2{margin:0 0 8px;font-size:25px} .hero p{margin:0;opacity:.92;line-height:1.55}
+.progressbox{margin-top:16px;background:#ffffff24;padding:12px;border-radius:14px}
+.bar{height:9px;background:#ffffff38;border-radius:999px;overflow:hidden} .bar>span{display:block;height:100%;background:#fff;width:0}
+.tabs{display:flex;gap:8px;overflow:auto;padding:15px 0 5px}
+.tab{border:1px solid var(--line);background:#fff;padding:9px 13px;border-radius:999px;white-space:nowrap;font-weight:700;color:#344054}
+.tab.active{background:var(--brand);color:#fff;border-color:var(--brand)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:15px;box-shadow:0 3px 12px #1018280a}
+.chapter h3{margin:0 0 10px;font-size:17px}
+.lesson{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-top:1px dashed var(--line)}
+.lesson:first-of-type{border-top:0} .lesson button,.primary{border:0;background:var(--brand);color:#fff;border-radius:11px;padding:9px 12px;font-weight:750;cursor:pointer}
+.badge{font-size:11px;background:#eef2ff;color:#3046a5;padding:4px 8px;border-radius:99px}
+.hidden{display:none!important}
+.back{border:0;background:#eef2ff;color:#3046a5;border-radius:10px;padding:9px 11px;font-weight:700;margin-bottom:12px}
+.lessonhero{display:flex;gap:12px;align-items:flex-start}
+.lessonhero .num{min-width:48px;height:48px;border-radius:14px;background:#eef2ff;color:#3046a5;display:grid;place-items:center;font-weight:900}
+.section-title{margin:22px 0 10px;font-size:18px}
+.note{background:#fff7e6;border:1px solid #f7d98b;border-radius:14px;padding:13px;line-height:1.55}
+.example{background:#f1f8ff;border-left:4px solid #4882d8;padding:13px;border-radius:10px;line-height:1.6}
+.q{margin:12px 0;padding:14px;border:1px solid var(--line);border-radius:15px;background:#fff}
+.q p{font-weight:750;line-height:1.45} .answers{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ans{text-align:left;border:1px solid #d7dce8;background:#fff;padding:10px;border-radius:10px;cursor:pointer}
+.ans.correct{border-color:#7bc9a3;background:#eaf8f1} .ans.wrong{border-color:#e3a0a0;background:#fff0f0}
+.feedback{margin-top:8px;font-size:13px;font-weight:700}
+.result{margin-top:12px;padding:14px;border-radius:14px;background:#eef2ff}
+footer{text-align:center;color:var(--muted);font-size:12px;padding-top:28px}
+@media(max-width:720px){.grid{grid-template-columns:1fr}.answers{grid-template-columns:1fr}.hero h2{font-size:22px}}
+</style>
+</head>
+<body>
+<header><div class="head"><div class="logo">7</div><div><h1>Toán lớp 7</h1><div class="sub">Kết nối tri thức • V4 • Học – luyện – ôn tập – kiểm tra</div></div></div></header>
+<main>
+<section id="home">
+<div class="hero">
+<h2>Toán 7 • Kết nối tri thức <span style='font-size:14px;background:#fff;color:#3457d5;padding:4px 8px;border-radius:999px'>V4</span></h2>
+<p>Bám theo thứ tự 37 bài của SGK Kết nối tri thức. Mỗi bài có kiến thức trọng tâm, ví dụ, luyện tập và kiểm tra nhanh.</p>
+<div class="progressbox"><div style="display:flex;justify-content:space-between;margin-bottom:7px"><b>Tiến độ</b><span id="progressText">0/37 bài</span></div><div class="bar"><span id="progressBar"></span></div></div>
+</div>
+<div class="tabs"><button class="tab active" onclick="filterPart(0,this)">Cả năm</button><button class="tab" onclick="filterPart(1,this)">Tập 1</button><button class="tab" onclick="filterPart(2,this)">Tập 2</button></div>
+<div id="chapters" class="grid"></div>
+</section>
+
+<section id="lessonView" class="hidden">
+<button class="back" onclick="goHome()">← Danh sách bài</button>
+<div class="card">
+<div class="lessonhero"><div class="num" id="lessonNum">1</div><div><h2 id="lessonTitle" style="margin:0 0 5px"></h2><div class="sub" id="chapterTitle"></div></div></div>
+</div>
+<div id="lessonContent"></div>
+</section>
+<footer>Web học Toán 7 • Nội dung diễn giải và bài tập được biên soạn mới theo chủ đề SGK</footer>
+</main>
+
+<script>
+const curriculum=[{"title": "Chương I. Số hữu tỉ", "lessons": ["Bài 1. Tập hợp các số hữu tỉ", "Bài 2. Cộng, trừ, nhân, chia số hữu tỉ", "Bài 3. Lũy thừa với số mũ tự nhiên của một số hữu tỉ", "Bài 4. Thứ tự thực hiện các phép tính. Quy tắc chuyển vế"]}, {"title": "Chương II. Số thực", "lessons": ["Bài 5. Làm quen với số thập phân vô hạn tuần hoàn", "Bài 6. Số vô tỉ. Căn bậc hai số học", "Bài 7. Tập hợp các số thực"]}, {"title": "Chương III. Góc và đường thẳng song song", "lessons": ["Bài 8. Góc ở vị trí đặc biệt. Tia phân giác của một góc", "Bài 9. Hai đường thẳng song song và dấu hiệu nhận biết", "Bài 10. Tiên đề Euclid. Tính chất của hai đường thẳng song song", "Bài 11. Định lí và chứng minh định lí"]}, {"title": "Chương IV. Tam giác bằng nhau", "lessons": ["Bài 12. Tổng các góc trong một tam giác", "Bài 13. Hai tam giác bằng nhau. Trường hợp bằng nhau thứ nhất của tam giác", "Bài 14. Trường hợp bằng nhau thứ hai và thứ ba của tam giác", "Bài 15. Các trường hợp bằng nhau của tam giác vuông", "Bài 16. Tam giác cân. Đường trung trực của đoạn thẳng"]}, {"title": "Chương V. Thu thập và biểu diễn dữ liệu", "lessons": ["Bài 17. Thu thập và phân loại dữ liệu", "Bài 18. Biểu đồ hình quạt tròn", "Bài 19. Biểu đồ đoạn thẳng"]}, {"title": "Chương VI. Tỉ lệ thức và đại lượng tỉ lệ", "lessons": ["Bài 20. Tỉ lệ thức", "Bài 21. Tính chất của dãy tỉ số bằng nhau", "Bài 22. Đại lượng tỉ lệ thuận", "Bài 23. Đại lượng tỉ lệ nghịch"]}, {"title": "Chương VII. Biểu thức đại số và đa thức một biến", "lessons": ["Bài 24. Biểu thức đại số", "Bài 25. Đa thức một biến", "Bài 26. Phép cộng và phép trừ đa thức một biến", "Bài 27. Phép nhân đa thức một biến", "Bài 28. Phép chia đa thức một biến"]}, {"title": "Chương VIII. Làm quen với biến cố và xác suất của biến cố", "lessons": ["Bài 29. Làm quen với biến cố", "Bài 30. Làm quen với xác suất của biến cố"]}, {"title": "Chương IX. Quan hệ giữa các yếu tố trong một tam giác", "lessons": ["Bài 31. Quan hệ giữa góc và cạnh đối diện trong một tam giác", "Bài 32. Quan hệ giữa đường vuông góc và đường xiên", "Bài 33. Quan hệ giữa ba cạnh của một tam giác", "Bài 34. Sự đồng quy của ba đường trung tuyến, ba đường phân giác trong một tam giác", "Bài 35. Sự đồng quy của ba đường trung trực, ba đường cao trong một tam giác"]}, {"title": "Chương X. Một số hình khối trong thực tiễn", "lessons": ["Bài 36. Hình hộp chữ nhật và hình lập phương", "Bài 37. Hình lăng trụ đứng tam giác và hình lăng trụ đứng tứ giác"]}];
+const total=37;
+let completed=new Set(JSON.parse(localStorage.getItem('toan7_done')||'[]'));
+
+const LESSONS={"1": {"title": "Bài 1. Tập hợp các số hữu tỉ", "knowledge": ["Số hữu tỉ là số viết được dưới dạng a/b, với a, b là số nguyên và b ≠ 0.", "Tập hợp các số hữu tỉ được kí hiệu là Q.", "Mọi số nguyên đều là số hữu tỉ vì n = n/1.", "Trên trục số, số nằm bên phải lớn hơn số nằm bên trái."], "examples": ["−3 = −3/1 nên −3 là số hữu tỉ.", "0,75 = 75/100 = 3/4 nên 0,75 là số hữu tỉ.", "−1/2 < 1/4 vì số âm luôn nhỏ hơn số dương."], "tip": "Muốn nhận biết một số hữu tỉ, hãy thử viết số đó dưới dạng phân số a/b với b ≠ 0.", "quiz": [["Số nào sau đây là số hữu tỉ?", ["√2", "π", "3/5", "√3"], 2, "3/5 có dạng a/b."], ["Số nguyên −7 có phải số hữu tỉ không?", ["Có", "Không", "Chỉ khi đổi dấu", "Không xác định"], 0, "−7 = −7/1."], ["0,5 bằng phân số nào?", ["1/5", "1/2", "2/5", "5/2"], 1, "0,5 = 1/2."], ["Số nào lớn hơn?", ["−2/3", "1/3", "Hai số bằng nhau", "Không so sánh được"], 1, "Số dương lớn hơn số âm."], ["Kí hiệu tập hợp số hữu tỉ là gì?", ["N", "Z", "Q", "R"], 2, "Tập hợp số hữu tỉ kí hiệu Q."], ["Số 0 có phải số hữu tỉ không?", ["Có", "Không", "Chỉ khi mẫu bằng 0", "Không xác định"], 0, "0 = 0/1."], ["−0,25 bằng phân số nào?", ["−1/4", "1/4", "−1/2", "1/5"], 0, "−0,25 = −1/4."], ["Trên trục số, số lớn hơn nằm ở đâu?", ["Bên trái", "Bên phải", "Luôn ở gốc O", "Không có quy tắc"], 1, "Số lớn hơn nằm bên phải."], ["Số nào bằng 2?", ["2/1", "1/2", "−2/1", "0/2"], 0, "2 = 2/1."], ["Khẳng định nào đúng?", ["Mọi số hữu tỉ là số nguyên", "Mọi số nguyên là số hữu tỉ", "Không có số hữu tỉ âm", "0 không hữu tỉ"], 1, "Mọi số nguyên n đều viết được n/1."]]}, "2": {"title": "Bài 2. Cộng, trừ, nhân, chia số hữu tỉ", "knowledge": ["Muốn cộng hoặc trừ hai phân số, đưa về cùng mẫu rồi cộng hoặc trừ các tử.", "Phép trừ x − y có thể viết thành x + (−y).", "Muốn nhân hai số hữu tỉ dạng phân số, nhân tử với tử và mẫu với mẫu.", "Muốn chia cho một số hữu tỉ khác 0, nhân với số nghịch đảo của số chia."], "examples": ["1/3 + 1/6 = 2/6 + 1/6 = 1/2.", "3/4 − 1/2 = 3/4 − 2/4 = 1/4.", "(−2/3) × (3/5) = −2/5; 2/3 : 4/5 = 2/3 × 5/4 = 5/6."], "tip": "Khi nhân hoặc chia, hãy rút gọn trước nếu có thể để phép tính ngắn và ít sai hơn.", "quiz": [["1/2 + 1/4 bằng bao nhiêu?", ["2/6", "3/4", "1/6", "1"], 1, "1/2 = 2/4, nên tổng bằng 3/4."], ["3/5 − 1/5 bằng bao nhiêu?", ["2/5", "2/10", "4/5", "1/5"], 0, "Cùng mẫu nên trừ hai tử."], ["(−2/3) × (3/4) bằng?", ["−1/2", "1/2", "−2/4", "2"], 0, "Rút gọn được −1/2."], ["2/3 : 4/5 bằng?", ["8/15", "5/6", "6/5", "2/15"], 1, "2/3 × 5/4 = 5/6."], ["5/7 + (−2/7) bằng?", ["7/7", "3/7", "−3/7", "3/14"], 1, "5/7 − 2/7 = 3/7."], ["−1/2 − 1/2 bằng?", ["0", "−1", "1", "−1/4"], 1, "−1/2 − 1/2 = −1."], ["Số nghịch đảo của 3/4 là?", ["−3/4", "4/3", "1/3", "1/4"], 1, "Đổi vị trí tử và mẫu."], ["Có thể chia cho số 0 không?", ["Có", "Không", "Chỉ số dương được", "Chỉ phân số được"], 1, "Không được phép chia cho 0."], ["(−2) × (−3/5) bằng?", ["−6/5", "6/5", "5/6", "−5/6"], 1, "Âm nhân âm thành dương."], ["1 − 3/4 bằng?", ["1/4", "2/4", "3/4", "−1/4"], 0, "1 = 4/4 nên còn 1/4."]]}, "3": {"title": "Bài 3. Lũy thừa với số mũ tự nhiên của một số hữu tỉ", "knowledge": ["Với n là số tự nhiên dương, xⁿ là tích của n thừa số x.", "x¹ = x; với x ≠ 0 thì x⁰ = 1.", "Khi nhân hai lũy thừa cùng cơ số: xᵐ × xⁿ = xᵐ⁺ⁿ.", "Khi chia hai lũy thừa cùng cơ số khác 0: xᵐ : xⁿ = xᵐ⁻ⁿ nếu m ≥ n.", "Lũy thừa của lũy thừa: (xᵐ)ⁿ = xᵐⁿ."], "examples": ["(2/3)³ = 2³/3³ = 8/27.", "2³ × 2² = 2⁵ = 32.", "(3²)³ = 3⁶."], "tip": "Phân biệt xᵐ × xⁿ là cộng số mũ, còn (xᵐ)ⁿ là nhân số mũ.", "quiz": [["2³ bằng?", ["6", "8", "9", "4"], 1, "2³ = 2×2×2 = 8."], ["(1/2)² bằng?", ["1/2", "1/4", "2", "4"], 1, "Bình phương cả tử và mẫu."], ["5⁰ bằng?", ["0", "1", "5", "Không xác định"], 1, "Với cơ số khác 0, lũy thừa mũ 0 bằng 1."], ["2³ × 2² bằng?", ["2⁵", "4⁵", "2⁶", "4⁶"], 0, "Cùng cơ số khi nhân thì cộng số mũ."], ["3⁵ : 3² bằng?", ["3³", "1³", "3⁷", "9³"], 0, "5 − 2 = 3."], ["(2³)² bằng?", ["2⁵", "2⁶", "4⁵", "2"], 1, "3×2 = 6."], ["(−2)² bằng?", ["−4", "4", "−2", "2"], 1, "Tích hai số âm là số dương."], ["(−2)³ bằng?", ["8", "−8", "6", "−6"], 1, "Lũy thừa bậc lẻ giữ dấu âm."], ["(3/4)² bằng?", ["6/8", "9/16", "3/16", "9/8"], 1, "3²/4² = 9/16."], ["x² × x³ bằng?", ["x⁵", "x⁶", "2x⁵", "x"], 0, "Cộng hai số mũ: 2+3=5."]]}, "4": {"title": "Bài 4. Thứ tự thực hiện các phép tính. Quy tắc chuyển vế", "knowledge": ["Nếu biểu thức không có dấu ngoặc: thực hiện lũy thừa trước, rồi nhân/chia, cuối cùng cộng/trừ.", "Nếu có dấu ngoặc: thực hiện trong ngoặc trước.", "Khi chuyển một số hạng từ vế này sang vế kia của một đẳng thức, phải đổi dấu số hạng đó.", "Quy tắc chuyển vế giúp tìm số chưa biết trong các đẳng thức đơn giản."], "examples": ["2 + 3 × 4 = 2 + 12 = 14.", "(2 + 3) × 4 = 5 × 4 = 20.", "x + 5 = 9 ⇒ x = 9 − 5 = 4."], "tip": "Nhớ thứ tự: Ngoặc → Lũy thừa → Nhân/Chia → Cộng/Trừ.", "quiz": [["2 + 3 × 4 bằng?", ["20", "14", "24", "10"], 1, "Nhân trước: 3×4=12, rồi cộng 2."], ["(2 + 3) × 4 bằng?", ["14", "20", "9", "24"], 1, "Tính trong ngoặc trước."], ["2² + 3 × 2 bằng?", ["14", "10", "8", "12"], 1, "2²=4; 3×2=6; tổng 10."], ["x + 5 = 9 thì x bằng?", ["14", "4", "−4", "5"], 1, "Chuyển 5 sang vế phải thành −5."], ["x − 3 = 7 thì x bằng?", ["4", "10", "−10", "21"], 1, "x = 7 + 3 = 10."], ["2x = 8 thì x bằng?", ["16", "6", "4", "2"], 2, "Chia hai vế cho 2."], ["15 : 3 × 2 bằng?", ["2,5", "10", "5", "30"], 1, "Nhân và chia cùng mức ưu tiên, làm từ trái sang phải."], ["10 − 2³ bằng?", ["2", "4", "8", "6"], 0, "2³=8 nên 10−8=2."], ["x + 1/2 = 3/2 thì x bằng?", ["1", "2", "1/2", "3/2"], 0, "x = 3/2 − 1/2 = 1."], ["Quy tắc chuyển vế yêu cầu điều gì?", ["Giữ nguyên dấu", "Đổi dấu số hạng chuyển vế", "Nhân đôi số hạng", "Đổi tử và mẫu"], 1, "Số hạng chuyển vế phải đổi dấu."]]}};
+
+function render(){
+ const el=document.getElementById('chapters'); el.innerHTML='';
+ curriculum.forEach((c,ci)=>{
+  const card=document.createElement('div'); card.className='card chapter'; card.dataset.part=ci<5?1:2;
+  card.innerHTML=`<h3>${c.title}</h3>`;
+  c.lessons.forEach(l=>{
+    const m=l.match(/Bài (\d+)/); const n=m?+m[1]:0;
+    const row=document.createElement('div'); row.className='lesson';
+    row.innerHTML=`<div><div>${l}</div>${completed.has(n)?'<span class="badge">✓ Đã học</span>':''}</div><button onclick="openLesson(${ci},${n})">Học</button>`;
+    card.appendChild(row);
+  });
+  if(ci===0){
+    const test=document.createElement('div'); test.className='lesson';
+    test.innerHTML='<div><b>📝 Kiểm tra Chương I</b><div class="sub">Ôn tập sau Bài 1–4</div></div><button onclick="chapterTest()">Làm bài</button>';
+    card.appendChild(test);
+  }
+  el.appendChild(card);
+ });
+ updateProgress();
+}
+function filterPart(part,btn){
+ document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active')); btn.classList.add('active');
+ document.querySelectorAll('.chapter').forEach(x=>x.classList.toggle('hidden',part&&+x.dataset.part!==part));
+}
+function updateProgress(){
+ document.getElementById('progressText').textContent=`${completed.size}/${total} bài`;
+ document.getElementById('progressBar').style.width=(completed.size/total*100)+'%';
+}
+function openLesson(ci,n){
+ const title=curriculum[ci].lessons.find(x=>x.startsWith('Bài '+n+'.'))||'';
+ document.getElementById('home').classList.add('hidden'); document.getElementById('lessonView').classList.remove('hidden');
+ document.getElementById('lessonNum').textContent=n; document.getElementById('lessonTitle').textContent=title; document.getElementById('chapterTitle').textContent=curriculum[ci].title;
+ if(LESSONS[n]) renderFullLesson(n); else renderPlaceholder(n,title);
+ window.scrollTo(0,0);
+}
+function goHome(){document.getElementById('lessonView').classList.add('hidden');document.getElementById('home').classList.remove('hidden');render();window.scrollTo(0,0)}
+function renderFullLesson(n){
+ const d=LESSONS[n];
+ if(n===1){ renderLesson1Rich(); return; }
+ let html=`<h3 class="section-title">1. Kiến thức trọng tâm</h3><div class="card"><ul style="line-height:1.8">${d.knowledge.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+ <h3 class="section-title">2. Ví dụ dễ hiểu</h3>${d.examples.map(x=>`<div class="example">${x}</div>`).join('<div style="height:8px"></div>')}
+ <div class="note" style="margin-top:12px"><b>Mẹo nhớ:</b> ${d.tip}</div>
+ <h3 class="section-title">3. Kiểm tra nhanh • 10 câu</h3><div id="quiz"></div><div id="result"></div>`;
+ document.getElementById('lessonContent').innerHTML=html; renderQuiz(n);
+}
+
+function renderLesson1Rich(){
+ const html=`
+ <div class="card" style="margin-top:14px"><h3>🎯 Mục tiêu</h3><p>Nhận biết số hữu tỉ; so sánh hai số hữu tỉ; nhận biết số hữu tỉ dương, âm, số 0; biểu diễn số hữu tỉ trên trục số.</p></div>
+ <div class="note" style="margin-top:14px"><b>Cách học:</b> Học từng mục → xem ví dụ → tự làm bài ngay → mở hướng dẫn khi cần → cuối bài làm kiểm tra. Nội dung luyện được biên soạn theo các dạng của SBT, không chép nguyên trang sách.</div>
+ <h3 class="section-title">1. Số hữu tỉ</h3><div class="card"><p>Số hữu tỉ là số viết được dưới dạng <b>a/b</b>, với a, b là số nguyên và b ≠ 0. Tập hợp số hữu tỉ kí hiệu <b>Q</b>.</p><div class="example"><b>Ví dụ:</b> 3 = 3/1; −2 = −2/1; 0,5 = 1/2; −0,75 = −3/4. Tất cả đều là số hữu tỉ.</div></div>
+ <h3 class="section-title">2. Thứ tự trong tập hợp các số hữu tỉ</h3><div class="card"><p>Hai số hữu tỉ luôn so sánh được. Có thể quy đồng mẫu, đưa về cùng tử khi thuận tiện hoặc đổi sang số thập phân.</p>
+ <div class="example"><b>Ví dụ 1:</b> 5/7 &gt; 3/7 vì cùng mẫu 7 và 5 &gt; 3.</div>
+ <div class="example" style="margin-top:8px"><b>Ví dụ 2:</b> So sánh −2/3 và −3/4.<br>−2/3 = −8/12; −3/4 = −9/12. Vì −8 &gt; −9 nên <b>−2/3 &gt; −3/4</b>.</div>
+ <div class="example" style="margin-top:8px"><b>Ví dụ 3:</b> −5/8 &lt; 2/9 vì số âm luôn nhỏ hơn số dương.</div>
+ <div class="note" style="margin-top:10px"><b>Mẹo nhớ:</b> Số dương &gt; 0 &gt; số âm. Với hai số âm, số gần 0 hơn là số lớn hơn.</div></div>
+ <h3 class="section-title">3. Số hữu tỉ dương – âm – số 0</h3><div class="card"><p>x &gt; 0: số hữu tỉ dương.<br>x &lt; 0: số hữu tỉ âm.<br>x = 0: không dương cũng không âm.</p><div class="example"><b>Ví dụ:</b> 4/5 dương; −7/10 âm; 0 không dương cũng không âm.</div></div>
+ <h3 class="section-title">4. Biểu diễn trên trục số</h3><div class="card"><p>Mỗi số hữu tỉ được biểu diễn bởi một điểm trên trục số. Số lớn hơn nằm bên phải.</p><div style="font-family:monospace;text-align:center;padding:14px;overflow:auto">←──●────●────●────●────●──→<br>−1&nbsp;&nbsp;−1/2&nbsp;&nbsp;0&nbsp;&nbsp;1/2&nbsp;&nbsp;1</div><div class="example"><b>Ví dụ:</b> Muốn biểu diễn 3/4, chia đoạn từ 0 đến 1 thành 4 phần bằng nhau rồi lấy điểm thứ 3 về phía bên phải 0.</div></div>
+ <h3 class="section-title">5. Làm ngay sau từng phần</h3><div class="card">
+ <p><b>Bài A.</b> Phân loại: −3/5; 7/9; 0; −1,2; 2.</p><details><summary><b>Xem hướng dẫn</b></summary><p>−3/5, −1,2 là số âm; 7/9, 2 là số dương; 0 không dương cũng không âm.</p></details>
+ <p><b>Bài B.</b> So sánh −5/6 và −7/9.</p><details><summary><b>Xem hướng dẫn</b></summary><p>−5/6 = −15/18; −7/9 = −14/18 ⇒ −5/6 &lt; −7/9.</p></details>
+ <p><b>Bài C.</b> Sắp xếp −1/2; 3/4; 0; −5/4 tăng dần.</p><details><summary><b>Xem đáp án</b></summary><p>−5/4 &lt; −1/2 &lt; 0 &lt; 3/4.</p></details></div>
+ <h3 class="section-title">6. Luyện tập theo định hướng SBT</h3><div class="note">Bám các dạng của SBT Bài 1: đúng/sai, kí hiệu thuộc tập hợp, phân loại số hữu tỉ, so sánh, đọc và biểu diễn trên trục số, bài toán thực tế. Các câu trên web được biên soạn lại để học sinh luyện trực tiếp.</div>
+ <div class="card" style="margin-top:10px"><p><b>Dạng 1:</b> Nhận biết và phân loại số hữu tỉ.</p><p><b>Dạng 2:</b> So sánh các số hữu tỉ.</p><p><b>Dạng 3:</b> Đọc và biểu diễn điểm trên trục số.</p><p><b>Dạng 4:</b> Sắp xếp các tỉ số trong tình huống thực tế.</p></div>
+ 
+<h3 class="section-title">7. Ôn luyện theo dạng bài</h3>
+<div class="card">
+ <p><b>Dạng 1 – Đúng/Sai.</b> Xét các phát biểu: (a) Mọi số nguyên đều là số hữu tỉ; (b) Mọi số hữu tỉ đều là số nguyên; (c) 0 là số hữu tỉ; (d) số hữu tỉ âm nhỏ hơn 0.</p>
+ <details><summary><b>Xem đáp án & giải thích</b></summary><p>a) Đúng vì n=n/1. b) Sai, chẳng hạn 1/2 không là số nguyên. c) Đúng vì 0=0/1. d) Đúng theo định nghĩa.</p></details>
+ <hr style="border:0;border-top:1px solid var(--line)">
+ <p><b>Dạng 2 – Thuộc/không thuộc.</b> Điền ∈ hoặc ∉: −7 … Q; −7 … Z; −3/5 … Z; −3/5 … Q.</p>
+ <details><summary><b>Xem đáp án</b></summary><p>−7 ∈ Q; −7 ∈ Z; −3/5 ∉ Z; −3/5 ∈ Q.</p></details>
+ <hr style="border:0;border-top:1px solid var(--line)">
+ <p><b>Dạng 3 – So sánh.</b> So sánh 57/2021 và 59/2021; −19/35 và −13/21.</p>
+ <details><summary><b>Xem hướng dẫn</b></summary><p>Cặp đầu cùng mẫu nên 57/2021 &lt; 59/2021. Cặp thứ hai quy đồng hoặc nhân chéo rồi so sánh cẩn thận dấu âm.</p></details>
+ <hr style="border:0;border-top:1px solid var(--line)">
+ <p><b>Dạng 4 – Trục số.</b> Hãy tự vẽ trục số và biểu diễn −4/5 và 1/2 trên cùng trục số.</p>
+ <details><summary><b>Gợi ý</b></summary><p>Có thể chia đơn vị thành 10 phần bằng nhau: −4/5=−8/10 và 1/2=5/10.</p></details>
+ <hr style="border:0;border-top:1px solid var(--line)">
+ <p><b>Dạng 5 – Vận dụng.</b> Bốn bạn có tỉ lệ hoàn thành lần lượt 3/5; 0,75; 2/3; 7/10. Sắp xếp từ thấp đến cao.</p>
+ <details><summary><b>Xem đáp án</b></summary><p>3/5=0,6; 2/3≈0,667; 7/10=0,7; 0,75=0,75 ⇒ 3/5 &lt; 2/3 &lt; 7/10 &lt; 0,75.</p></details>
+</div>
+<h3 class="section-title">8. Tự kiểm tra cuối bài • 10 câu</h3><div id="quiz"></div><div id="result"></div>`;
+ document.getElementById('lessonContent').innerHTML=html; renderQuiz(1);
+}
+
+function renderPlaceholder(n,title){
+ document.getElementById('lessonContent').innerHTML=`<div class="card" style="margin-top:14px"><h3>${title}</h3><p>Bài này thuộc các chương tiếp theo. Khung bài đã sẵn sàng và sẽ được bổ sung ở bản sau.</p><button class="primary" onclick="markDone(${n})">Đánh dấu đã học</button></div>`;
+}
+function renderQuiz(n){
+ const d=LESSONS[n], box=document.getElementById('quiz'); let score=0, answered=0;
+ d.quiz.forEach((q,qi)=>{
+   const order=q[1].map((_,i)=>i).sort(()=>Math.random()-.5);
+   const div=document.createElement('div');div.className='q';
+   div.innerHTML=`<p>Câu ${qi+1}. ${q[0]}</p><div class="answers">${order.map(i=>`<button class="ans" data-i="${i}">${q[1][i]}</button>`).join('')}</div><div class="feedback"></div>`;
+   div.querySelectorAll('.ans').forEach(b=>b.onclick=()=>{
+      if(div.dataset.done)return; div.dataset.done=1; answered++;
+      const chosen=+b.dataset.i;
+      if(chosen===q[2]){score++;b.classList.add('correct')}else{b.classList.add('wrong');div.querySelector(`[data-i="${q[2]}"]`).classList.add('correct')}
+      div.querySelector('.feedback').textContent=(chosen===q[2]?'✓ Đúng. ':'✗ Chưa đúng. ')+q[3];
+      if(answered===d.quiz.length){
+        completed.add(n);localStorage.setItem('toan7_done',JSON.stringify([...completed]));
+        document.getElementById('result').innerHTML=`<div class="result"><b>Kết quả: ${score}/10</b><br>${score>=8?'Rất tốt! Bạn đã nắm khá chắc bài này.':score>=5?'Khá ổn. Hãy xem lại các câu sai rồi thử lại.':'Nên xem lại phần kiến thức trọng tâm và ví dụ trước khi làm lại.'}<br><button class="primary" style="margin-top:10px" onclick="openLesson(0,${n})">Làm lại với đáp án xáo trộn</button></div>`;
+      }
+   });
+   box.appendChild(div);
+ });
+}
+
+function chapterTest(){
+ document.getElementById('home').classList.add('hidden'); document.getElementById('lessonView').classList.remove('hidden');
+ document.getElementById('lessonNum').textContent='I'; document.getElementById('lessonTitle').textContent='Kiểm tra Chương I';
+ document.getElementById('chapterTitle').textContent='Số hữu tỉ • 20 câu tổng hợp';
+ let all=[];
+ [1,2,3,4].forEach(n=>LESSONS[n].quiz.slice(0,5).forEach(q=>all.push(q)));
+ all=all.sort(()=>Math.random()-.5);
+ document.getElementById('lessonContent').innerHTML='<div class="note" style="margin-top:14px"><b>Yêu cầu:</b> Làm 20 câu. Đáp án được xáo trộn mỗi lần mở đề.</div><div id="quiz"></div><div id="result"></div>';
+ const box=document.getElementById('quiz'); let score=0,answered=0;
+ all.forEach((q,qi)=>{
+   const order=q[1].map((_,i)=>i).sort(()=>Math.random()-.5);
+   const div=document.createElement('div');div.className='q';
+   div.innerHTML=`<p>Câu ${qi+1}. ${q[0]}</p><div class="answers">${order.map(i=>`<button class="ans" data-i="${i}">${q[1][i]}</button>`).join('')}</div><div class="feedback"></div>`;
+   div.querySelectorAll('.ans').forEach(b=>b.onclick=()=>{
+    if(div.dataset.done)return;div.dataset.done=1;answered++;
+    const chosen=+b.dataset.i;if(chosen===q[2]){score++;b.classList.add('correct')}else{b.classList.add('wrong');div.querySelector(`[data-i="${q[2]}"]`).classList.add('correct')}
+    div.querySelector('.feedback').textContent=(chosen===q[2]?'✓ Đúng. ':'✗ Chưa đúng. ')+q[3];
+    if(answered===20) document.getElementById('result').innerHTML=`<div class="result"><b>Điểm: ${score}/20</b><br>${score>=16?'Hoàn thành tốt Chương I!':score>=10?'Đã đạt mức cơ bản. Nên ôn lại các câu sai.':'Nên học lại Bài 1–4 trước khi làm lại đề.'}<br><button class="primary" style="margin-top:10px" onclick="chapterTest()">Tạo đề khác</button></div>`;
+   });
+   box.appendChild(div);
+ });
+ window.scrollTo(0,0);
+}
+function markDone(n){completed.add(n);localStorage.setItem('toan7_done',JSON.stringify([...completed]));alert('Đã lưu tiến độ bài '+n);}
+render();
+</script>
+</body></html>
