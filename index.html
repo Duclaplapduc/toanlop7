@@ -72,7 +72,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding-top:28px}
 <section id="home">
 <div class="hero">
 <h2>Toán 7 • Kết nối tri thức <span style='font-size:14px;background:#fff;color:#3457d5;padding:4px 8px;border-radius:999px'>V27</span></h2>
-<p>Bám theo thứ tự 37 bài của SGK Kết nối tri thức. <b>V27 – Gia sư Toán 7 • rà soát lần 2, sửa các bài còn chung chung</b> theo SGK + SBT Kết nối tri thức, có kiến thức, ví dụ, luyện theo SBT, tự luyện và kiểm tra.</p>
+<p>Bám theo thứ tự 37 bài của SGK Kết nối tri thức. <b>V27 – Gia sư Toán 7 • đồng bộ toàn bộ 37 bài</b> theo SGK + SBT Kết nối tri thức, có kiến thức, ví dụ, luyện theo SBT, tự luyện và kiểm tra.</p>
 <div class="note" style="margin:12px 0"><b>Nguồn học:</b> SGK Toán 7 Tập 1–2 và Sách bài tập Toán 7 Tập 1–2, bộ Kết nối tri thức. Bài tập SGK được tóm tắt từ SGK Toán 7 Tập 1–2; phần Gia sư là lời hướng dẫn do web biên soạn. Bài tự luyện trên web được biên soạn tương tự để học sinh tự làm. V27 nâng cấp toàn bộ bài tập: SBT, tự luyện và kiểm tra đều có hướng dẫn theo kiểu Gia sư; đáp án luôn nằm sau phần giải thích.</div><div class="progressbox"><div style="display:flex;justify-content:space-between;margin-bottom:7px"><b>Tiến độ</b><span id="progressText">0/37 bài</span></div><div class="bar"><span id="progressBar"></span></div></div>
 </div>
 <div class="tabs"><button class="tab active" onclick="filterPart(0,this)">Cả năm</button><button class="tab" onclick="filterPart(1,this)">Tập 1</button><button class="tab" onclick="filterPart(2,this)">Tập 2</button></div>
@@ -134,6 +134,17 @@ const V27_AUDIT = {
   sbt_total: 284,
   lessons: 37,
   checks: "coverage-numbering-tutor-steps-known-corrections-js-syntax"
+};
+
+const V27_SYNC_AUDIT = {
+  version: "V27",
+  lessons: 37,
+  sgk_items: 214,
+  sbt_lesson1_custom: 9,
+  sbt_structured: 275,
+  sbt_total: 284,
+  flow: "knowledge-examples-sgk-sbt-practice-quiz",
+  status: "synchronized"
 };
 function openLesson(ci,n){
  const title=curriculum[ci].lessons.find(x=>x.startsWith('Bài '+n+'.'))||'';
@@ -198,7 +209,7 @@ function sbtGuide(d, item, i){
 
 function sgkTutorBlock(it){
  const steps=it[4]||[];
- return `<details class="tutor-box"><summary>👨‍🏫 Lời giải chi tiết của chính bài này</summary><div class="tutor-steps">
+ return `<details class="tutor-box"><summary>👨‍🏫 Gia sư V27 • lời giải chi tiết bài SGK</summary><div class="tutor-steps">
  <div style="margin-bottom:8px"><b>🎯 Cách học:</b> Tự làm ra giấy trước rồi mới mở. V27 dùng phép tính, chứng minh hoặc xử lí dữ liệu cụ thể của từng bài SGK, không dùng khung trả lời chung.</div>
  ${steps.map((x,i)=>`<div class="tutor-step"><span class="tutor-num">${i+1}</span><div>${x}</div></div>`).join('')}
  </div></details>`;
@@ -206,205 +217,14 @@ function sgkTutorBlock(it){
 function renderSGKExercises(n){
  const arr=SGK_DETAIL[String(n)]||[];
  if(!arr.length) return '';
- return `<div class="note" style="margin-top:10px"><b>✅ SGK V27: 214/214 mục đã có lời giải riêng.</b> Bài số học có phép tính cụ thể; hình học có suy luận/chứng minh; dữ liệu–xác suất có tính toán và kết luận theo chính dữ kiện của bài.</div>
-<h3 class="section-title">3. 📕 Bài tập trong SGK</h3>
- <div class="note"><b>Nguồn:</b> Bài tập cuối bài trong SGK Toán 7 Kết nối tri thức. Web chỉ <b>tóm tắt đề</b>; phần gợi ý và Gia sư là diễn giải hỗ trợ học sinh.</div>
+ return `<h3 class="section-title">3. 📕 Bài tập trong SGK</h3>
+ <div class="note"><b>Chuẩn V27:</b> Tự làm trước → mở gợi ý → xem Gia sư giải từng bước → cuối cùng mới mở kết quả.</div>
  ${arr.map(it=>`<div class="card" style="margin-top:10px">
-   <p><b>📕 SGK ${it[0]}</b> • ${it[1]} <span style="font-size:.78em;padding:3px 7px;border-radius:999px;background:#fff4e6">theo SGK</span></p>
-   ${detailBlock('💡 Gợi ý ngắn • chưa xem đáp số',it[2])}
+   <p><b>📕 SGK ${it[0]}</b> • ${it[1]} <span style="font-size:.78em;padding:3px 7px;border-radius:999px;background:#fff4e8">theo SGK</span></p>
+   ${detailBlock('💡 Gợi ý • chưa xem kết quả',it[2])}
    ${sgkTutorBlock(it)}
-   ${detailBlock('✅ Tự đối chiếu sau khi đã xem lời giải',it[3])}
+   ${detailBlock('✅ Kết quả / kết luận • mở sau cùng',it[3])}
  </div>`).join('')}`;
-}
-function tutorBlock(it){
- const steps=(it[4]||[]);
- if(!steps.length) return '';
- return `<details class="tutor-box"><summary>👨‍🏫 Gia sư giải theo đúng bài này</summary><div class="tutor-steps">
-   <div style="margin-bottom:8px"><b>🎯 Cách học:</b> Đọc từng bước, tự viết phép biến đổi ra giấy. Phần Gia sư không đưa đáp án cuối ngay từ đầu; chỉ mở Kết quả sau khi đã hiểu cách làm.</div>
-   ${steps.map((x,i)=>`<div class="tutor-step"><span class="tutor-num">${i+1}</span><div>${x}</div></div>`).join('')}
- </div></details>`;
-}
-
-function lessonTutorSteps(question,hint,answer){
-  const t=((question||'')+' '+(hint||'')).toLowerCase();
-  let steps=[];
-  if(t.includes('tam giác')||t.includes('góc')||t.includes('song song')||t.includes('vuông góc')||t.includes('phân giác')||t.includes('trung tuyến')||t.includes('trung trực')||t.includes('đường cao')){
-    steps=[
-      'Ghi Giả thiết – Kết luận và đánh dấu dữ kiện trực tiếp trên hình.',
-      'Xác định định lí/tính chất phù hợp: tổng góc, góc do hai đường song song, quan hệ cạnh–góc, hoặc trường hợp bằng nhau của tam giác.',
-      hint||'Tìm mối liên hệ hình học đầu tiên từ các dữ kiện đã cho.',
-      'Viết từng suy luận kèm lí do. Nếu xét hai tam giác, phải nêu đủ các yếu tố tương ứng trước khi kết luận bằng nhau.',
-      'Từ kết quả trung gian suy ra điều đề hỏi; kiểm tra lại thứ tự đỉnh, tên góc và tên cạnh.'
-    ];
-  }else if(t.includes('tỉ lệ thuận')||t.includes('tỉ lệ nghịch')||t.includes('tỉ lệ thức')||t.includes('dãy tỉ số')){
-    steps=[
-      'Xác định hai đại lượng hoặc các tỉ số mà đề đang liên hệ.',
-      hint||'Viết quan hệ tỉ lệ trước khi thay số.',
-      'Chọn công thức đúng: y=ax; xy=a; ad=bc; hoặc tính chất dãy tỉ số bằng nhau.',
-      'Thay dữ kiện để tìm hệ số/tỉ số chung hoặc đại lượng trung gian.',
-      'Tính đại lượng đề hỏi và thay ngược vào quan hệ ban đầu để kiểm tra.'
-    ];
-  }else if(t.includes('đa thức')||t.includes('đơn thức')||t.includes('biểu thức')||t.includes('lũy thừa')){
-    steps=[
-      'Sắp xếp biểu thức theo cấu trúc dễ nhìn; đánh dấu dấu của từng hạng tử.',
-      hint||'Xác định phép toán cần làm trước.',
-      'Thực hiện lũy thừa/nhân/chia trước; sau đó cộng trừ. Với đa thức chỉ gộp các hạng tử đồng dạng.',
-      'Viết mỗi phép biến đổi trên một dòng để tránh mất dấu hoặc nhảy bước.',
-      'Thu gọn xong mới thay giá trị hoặc kết luận; nếu có phép chia, kiểm tra bằng A=BQ+R.'
-    ];
-  }else if(t.includes('xác suất')||t.includes('biến cố')||t.includes('xúc xắc')||t.includes('quả cầu')||t.includes('thẻ')){
-    steps=[
-      'Xác định phép thử và các kết quả có thể xảy ra.',
-      'Mô tả biến cố bằng những kết quả thuận lợi.',
-      hint||'Phân loại biến cố trước khi tính.',
-      'Nếu các kết quả đồng khả năng: P = số kết quả thuận lợi / tổng số kết quả.',
-      'Kiểm tra P phải từ 0 đến 1; chắc chắn → 1, không thể → 0.'
-    ];
-  }else if(t.includes('biểu đồ')||t.includes('dữ liệu')||t.includes('phần trăm')||t.includes('bảng')){
-    steps=[
-      'Đọc tiêu đề, chú giải, đơn vị và trục của bảng/biểu đồ.',
-      hint||'Xác định đúng số liệu mà câu hỏi yêu cầu.',
-      'Nếu cần tỉ lệ: phần/tổng × 100%; nếu cần số lượng: tổng × tỉ lệ.',
-      'Tính từng đại lượng và giữ đúng đơn vị.',
-      'Chỉ đưa ra nhận xét trong phạm vi dữ liệu được cung cấp.'
-    ];
-  }else if(t.includes('thể tích')||t.includes('diện tích')||t.includes('hình hộp')||t.includes('lập phương')||t.includes('lăng trụ')||t.includes('bể')){
-    steps=[
-      'Tóm tắt các kích thước và đổi về cùng một đơn vị.',
-      hint||'Xác định đúng công thức hình học cần dùng.',
-      'Tính đại lượng trung gian như diện tích đáy hoặc chu vi đáy trước.',
-      'Thay số vào công thức chính rồi tính từng dòng.',
-      'Kiểm tra đơn vị: độ dài, diện tích và thể tích phải đúng loại.'
-    ];
-  }else if(t.includes('căn')||t.includes('số thực')||t.includes('vô tỉ')||t.includes('thập phân')||t.includes('giá trị tuyệt đối')){
-    steps=[
-      'Nhận dạng dạng số hoặc biểu thức trước khi biến đổi.',
-      hint||'Dùng tính chất tương ứng của căn, số thực, số thập phân hoặc giá trị tuyệt đối.',
-      'Biến đổi từng bước; với căn bậc hai số học nhớ kết quả luôn không âm.',
-      'Nếu ước lượng/làm tròn, giữ đủ chữ số đến bước cuối.',
-      'Kiểm tra điều kiện xác định và dấu của kết quả.'
-    ];
-  }else if(t.includes('tìm x')||t.includes('tìm n')||t.includes('tìm m')||t.includes('tìm p')||t.includes('tìm q')){
-    steps=[
-      'Viết lại điều kiện chứa ẩn thật rõ.',
-      hint||'Cô lập phần chứa ẩn trước.',
-      'Chuyển vế và đổi dấu đúng; với phân số nên quy đồng trước khi cộng/trừ.',
-      'Cô lập ẩn rồi thực hiện phép tính cuối.',
-      'Thay giá trị tìm được trở lại điều kiện ban đầu để kiểm tra.'
-    ];
-  }else{
-    steps=[
-      'Đọc đề và xác định chính xác đại lượng cần tìm.',
-      hint||'Chọn kiến thức/công thức phù hợp với dạng bài.',
-      'Viết phép tính hoặc suy luận đầu tiên ra một dòng riêng.',
-      'Tiếp tục từng bước, không gộp quá nhiều phép biến đổi vào một dòng.',
-      'Tự kiểm tra lại bằng dữ kiện ban đầu trước khi mở đáp án.'
-    ];
-  }
-  return steps;
-}
-function practiceTutorBlock(p){
-  const q=p[0]||'', hint=p[1]||'', ans=p[2]||'';
-  const low=(q+' '+hint).toLowerCase();
-  let method='';
-  if(low.includes('tam giác')||low.includes('góc')||low.includes('song song')||low.includes('vuông góc')){
-    method='Đánh dấu đúng dữ kiện trên hình → chọn định lí phù hợp → viết từng suy luận kèm lí do → mới kết luận.';
-  }else if(low.includes('tỉ lệ')||low.includes('tỉ số')){
-    method='Lập tỉ lệ thức/công thức bằng chính dữ kiện của đề → tìm hệ số/tỉ số chung → thay ngược để kiểm tra.';
-  }else if(low.includes('đa thức')||low.includes('biểu thức')||low.includes('lũy thừa')){
-    method='Khai triển/biến đổi từng dòng → giữ đúng dấu → gom hạng tử đồng dạng hoặc áp dụng quy tắc lũy thừa.';
-  }else if(low.includes('xác suất')||low.includes('biến cố')){
-    method='Liệt kê kết quả có thể xảy ra → xác định kết quả thuận lợi → tính/phân loại biến cố.';
-  }else{
-    method='Chuyển đúng dữ kiện thành phép tính → làm từng bước → kiểm tra bằng phép tính ngược hoặc điều kiện đề.';
-  }
-  return `<details class="practice-tutor"><summary>👨‍🏫 Lời giải chi tiết bài tự luyện này</summary><div class="inner">
-    <div class="tutor-step"><span class="tutor-num">1</span><div><b>Đề:</b> ${q}</div></div>
-    <div class="tutor-step"><span class="tutor-num">2</span><div><b>Gợi ý riêng:</b> ${hint}</div></div>
-    <div class="tutor-step"><span class="tutor-num">3</span><div><b>Cách làm:</b> ${method}</div></div>
-    <div class="tutor-step"><span class="tutor-num">4</span><div><b>Đáp án/lời giải để đối chiếu:</b> ${ans}</div></div>
-    <div class="check-box"><b>☑ Tự kiểm tra:</b> làm lại bài không nhìn đáp án; nếu ra khác, so từng dòng với gợi ý trên.</div>
-  </div></details>`;
-}
-function quizTutorBlock(q){
-  const question=q[0], opts=q[1], correct=q[2], explain=q[3];
-  const ans=opts[correct];
-  return `<div class="quiz-tutor"><details><summary>👨‍🏫 Vì sao đáp án này đúng?</summary>
-    <div class="tutor-step"><span class="tutor-num">1</span><div><b>Câu hỏi:</b> ${question}</div></div>
-    <div class="tutor-step"><span class="tutor-num">2</span><div><b>Kiến thức áp dụng:</b> ${explain}</div></div>
-    <div class="tutor-step"><span class="tutor-num">3</span><div><b>Đáp án đúng:</b> ${ans}</div></div>
-    <div class="check-box"><b>Tự kiểm tra:</b> giải thích được vì sao các lựa chọn còn lại không thỏa trước khi chuyển câu.</div>
-  </details></div>`;
-}
-function exampleTutorBlock(text){
- const x=(text||'').trim(), low=x.toLowerCase(), chain=x.split('=').map(v=>v.trim()).filter(Boolean);
- let st=[];
- if(chain.length>=2){
-   st.push(`Bắt đầu từ chính biểu thức: <b>${chain[0]}</b>.`);
-   for(let i=1;i<chain.length;i++){
-     let why='Biến đổi tương đương rồi rút gọn.';
-     if(/[⁰¹²³⁴⁵⁶⁷⁸⁹]/.test(x)) why='Áp dụng quy tắc lũy thừa phù hợp rồi tính/rút gọn số mũ.';
-     else if(x.includes('/')&&(x.includes('+')||x.includes('−')||x.includes('-'))) why='Quy đồng hoặc đổi phép trừ thành cộng số đối rồi tính.';
-     else if(x.includes('×')&&(x.includes('+')||x.includes('−'))) why='Dùng tính chất phân phối hoặc đặt nhân tử chung.';
-     else if(low.includes('tỉ lệ')) why='Dùng tính chất tỉ lệ thức/dãy tỉ số bằng nhau.';
-     st.push(`Từ <b>${chain[i-1]}</b> → <b>${chain[i]}</b>: ${why}`);
-   }
-   st.push('Tự làm lại từ đầu và đối chiếu với công thức ở phần Kiến thức trọng tâm.');
- }else if(low.includes('tam giác')||low.includes('góc')||low.includes('song song')||low.includes('vuông góc')){
-   st=[`Dữ kiện cụ thể: <b>${x}</b>`,'Ghi GT–KL và đánh dấu dữ kiện lên hình.','Chọn đúng định lí ở phần Kiến thức trọng tâm của bài.','Viết từng suy luận kèm lí do rồi mới kết luận.'];
- }else if(low.includes('biểu đồ')||low.includes('dữ liệu')||low.includes('%')){
-   st=[`Dữ liệu cụ thể: <b>${x}</b>`,'Đọc đơn vị, tổng số và phần cần tìm.','Chọn công thức đúng ở phần Kiến thức trọng tâm và thay chính số liệu này.','Tính từng bước, kiểm tra đơn vị/tổng tỉ lệ.'];
- }else{
-   st=[`Xét chính ví dụ: <b>${x}</b>`,'Tìm quy tắc/công thức tương ứng ở phần Kiến thức trọng tâm.','Viết bước trung gian cụ thể, không nhảy thẳng tới kết quả.','Kiểm tra lại bằng phép tính ngược hoặc điều kiện của đề.'];
- }
- return `<details class="practice-tutor"><summary>🧠 Giải thích chính ví dụ này</summary><div class="inner">${st.map((z,i)=>`<div class="tutor-step"><span class="tutor-num">${i+1}</span><div>${z}</div></div>`).join('')}</div></details>`;
-}
-function knowledgeBlock(d,n){
- const list=d.knowledge||[];
- return `<div class="card">
- <div class="note"><b>📌 Học trước khi làm bài:</b> Đây là kiến thức riêng của <b>Bài ${n}</b>. Học sinh cần đọc – hiểu – nhắc lại được quy tắc/công thức rồi mới chuyển sang ví dụ.</div>
- <div class="knowledge-grid">${list.map((x,i)=>`<div class="knowledge-item"><b>📚 ${i+1}. Kiến thức trọng tâm</b><div>${x}</div><div style="margin-top:7px;font-size:12px;color:#64748b">→ Khi làm bài, xác định mình đang dùng mục kiến thức nào.</div></div>`).join('')}</div>
- </div>`;
-}
-function renderStudyLesson(n){
- const d=STUDY[n];
- const quizData = d.quiz || (LESSONS[n] ? LESSONS[n].quiz : []);
- let html=`
- <div class="card" style="margin-top:14px"><h3 style="margin-top:0">🎯 Mục tiêu Bài ${n}</h3><p>${d.goal}</p></div>
- <div class="note" style="margin-top:12px"><b>Cách học V27:</b> Kiến thức → ví dụ có giải thích → SBT có Gia sư → tự luyện có Gia sư → kiểm tra có giải thích từng câu sau khi trả lời.</div>
- <div class="note" style="margin-top:10px"><b>📌 Nguyên tắc:</b> Không đưa đáp án thay cho lời giải. Học sinh được hướng dẫn cách bắt đầu, cách biến đổi/suy luận, cách kiểm tra; kết quả chỉ mở sau cùng.</div>
- <div class="note" style="margin-top:10px"><b>✅ V27 • Rà soát toàn bộ bài tập:</b> Kiến thức trọng tâm là nội dung riêng của từng bài; ví dụ giải thích theo chính biểu thức/dữ kiện đang hiển thị; sau đó mới đến SBT, tự luyện và kiểm tra.</div>
- <div class="note" style="margin-top:10px"><b>🔎 V27 kiểm tra độ phủ:</b> 214/214 mục SGK có lời giải riêng; 275/275 mục SBT có phần Gia sư. Các khối hướng dẫn mẫu cũ trong SBT đã được quét lại và thay bằng nội dung gắn với đề, gợi ý và kết quả của chính bài.</div>
-<div class="note" style="margin-top:10px"><b>✅ V27 • Kiểm tra độ phủ:</b> SGK 214/214 có lời giải riêng; SBT 275/275 đã chuyển sang cùng cấu trúc <b>Đề → Nhận dạng → Biến đổi/suy luận → Kết quả → Tự kiểm tra</b>. Bài tự luyện và câu kiểm tra cũng hiển thị hướng dẫn riêng theo chính câu đang làm.</div>
-<div class="note" style="margin-top:10px"><b>🔍 V27 • Kiểm tra cuối:</b> 
-<b>214/214</b> mục SGK có lời giải riêng; SBT phủ đủ <b>284/284</b> bài theo hai tập 
-(<b>1.1–1.9</b> ở Bài 1 và <b>275</b> mục Bài 2–37). Mỗi mục SBT dùng cấu trúc 
-<b>Đề cụ thể → dữ kiện/gợi ý cụ thể → phép biến đổi/suy luận → kết quả → tự kiểm tra</b>. 
-Các đáp số nhạy cảm đã được giữ theo bản đối chiếu SBT.</div>
-<div class="note" style="margin-top:10px"><b>🔍 V27 • Rà soát cuối cùng:</b>
-SGK <b>214/214</b> mục có lời giải riêng. SBT đủ <b>284/284</b> bài theo hai tập
-(<b>1.1–1.9</b> ở Bài 1 và <b>275</b> mục Bài 2–37). Mỗi mục SBT có tối thiểu 5 bước:
-<b>đề cụ thể → dữ kiện cụ thể → phép biến đổi/suy luận → kết quả → tự kiểm tra</b>.
-Các đáp số từng phát hiện sai ở các bản trước đã được giữ theo bản đối chiếu SBT.</div>
-<h3 class="section-title">1. 📚 Kiến thức trọng tâm • phải nắm trước khi làm bài</h3>
- ${knowledgeBlock(d,n)}
- <h3 class="section-title">2. 🧩 Ví dụ minh họa • giải thích đúng phép tính của ví dụ</h3>
- ${d.examples.map((x,i)=>`<div class="card" style="margin-top:9px"><div class="example"><b>Ví dụ ${i+1}.</b> ${x}</div>${exampleTutorBlock(x)}</div>`).join('')}
- ${renderSGKExercises(n)}
- <h3 class="section-title">4. 📗 Học cùng SBT • ${d.sbt_range}</h3>
- <div class="note"><b>V27:</b> Phần Gia sư được mở rộng thành nhiều bước hơn, bám trực tiếp vào dữ kiện/công thức của từng bài. Những bài có phép biến đổi xác định được từ dữ liệu trên web sẽ trình bày phép biến đổi cụ thể. Mỗi bài phải có phép biến đổi/suy luận đúng với dữ kiện riêng của chính bài đó. SBT giữ chuẩn <b>đề tóm tắt → gợi ý → Gia sư từng bước → kết quả cuối</b>. Đáp số được đối chiếu SBT; phần Gia sư là diễn giải để học sinh hiểu cách làm.</div>
- ${(SBT_DETAIL[n]||[]).length
-   ? SBT_DETAIL[n].map(it=>`<div class="card" style="margin-top:10px"><p><b>📘 Bài ${it[0]}</b> • ${it[1]} <span style="font-size:.78em;padding:3px 7px;border-radius:999px;background:#eef8ef">✓ Đáp số đã đối chiếu SBT</span></p>${detailBlock('💡 Gợi ý ngắn • chưa xem đáp số',it[2])}${tutorBlock(it)}${detailBlock('✅ Kết quả / kết luận • chỉ mở sau khi đã xem lời giải',it[3])}</div>`).join('')
-   : d.sbt_map.map((x,i)=>`<div class="card" style="margin-top:10px"><p><b>📘 ${x}</b></p>${detailBlock('💡 Gợi ý',sbtHint(d,x,i))}${detailBlock('✅ Cách giải dạng này',sbtGuide(d,x,i))}</div>`).join('')
- }
- <h3 class="section-title">5. ✏️ Bài tương tự để tự làm</h3>
- <div class="note"><b>Mới ở V27:</b> Tất cả bài tự luyện đều có phần <b>👨‍🏫 Gia sư hướng dẫn từng bước</b>; đáp án được đặt sau phần hướng dẫn.</div>
- ${d.practice.map((p,i)=>`<div class="card" style="margin-top:10px"><p><b>Bài tự luyện ${i+1}.</b> ${p[0]}</p>${detailBlock('💡 Gợi ý 1',p[1])}${practiceTutorBlock(p)}${detailBlock('✅ Đáp án & lời giải • mở sau cùng',p[2])}</div>`).join('')}
- <h3 class="section-title">6. 📝 Kiểm tra cuối bài • 10 câu</h3>
- <div class="note">Sau khi chọn đáp án, web sẽ hiện <b>đúng/sai + giải thích + nút xem cách suy luận</b>. Vị trí đáp án vẫn được xáo trộn.</div>
- <div id="quiz"></div><div id="result"></div>`;
- document.getElementById('lessonContent').innerHTML=html;
- renderCustomQuiz(n,quizData);
 }
 function renderCustomQuiz(n, qs){
  const box=document.getElementById('quiz'); let score=0, answered=0;
@@ -471,7 +291,8 @@ function renderLesson1Rich(){
  </div>
 
  
-<h3 class="section-title">6. 📗 Sách bài tập • Bài 1.1 → 1.9</h3>
+${renderSGKExercises(1)}
+<h3 class="section-title">4. 📗 Học cùng SBT • Bài 1.1 → 1.9</h3>
 <div class="note">
   Phần này đi theo đúng thứ tự <b>1.1 đến 1.9</b> ở trang 7–8 SBT Toán 7 Tập 1.
   Đề được diễn đạt gọn lại để học sinh nhìn đề, tự làm trước rồi mới mở gợi ý và lời giải.
@@ -486,7 +307,7 @@ function renderLesson1Rich(){
      d) Số nguyên âm không phải là số hữu tỉ âm.<br>
      e) Tập hợp Q chỉ gồm các số hữu tỉ dương và các số hữu tỉ âm.</p>
   <details><summary>💡 Gợi ý</summary><p>Nhớ rằng 0 không dương, không âm; mọi số nguyên đều là số hữu tỉ.</p></details>
-  <details class="tutor-box"><summary>👨‍🏫 Gia sư giải theo đúng bài này</summary><div class="tutor-steps"><div style="margin-bottom:8px"><b>🎯 Cách học:</b> Đọc từng bước và tự làm ra giấy trước khi mở đáp án.</div><div class="tutor-step"><span class="tutor-num">1</span><div>Xét từng nhận định riêng, không suy luận cả 5 câu cùng lúc.</div></div><div class="tutor-step"><span class="tutor-num">2</span><div>Câu a: trên trục số, mọi số âm nằm bên trái 0 còn số dương nằm bên phải 0 nên số hữu tỉ âm nhỏ hơn số hữu tỉ dương.</div></div><div class="tutor-step"><span class="tutor-num">3</span><div>Câu b: số tự nhiên không âm, còn số hữu tỉ âm nhỏ hơn 0 nên số hữu tỉ âm nhỏ hơn mọi số tự nhiên.</div></div><div class="tutor-step"><span class="tutor-num">4</span><div>Câu c: số 0 không phải số dương và cũng không phải số âm.</div></div><div class="tutor-step"><span class="tutor-num">5</span><div>Câu d: mọi số nguyên đều viết được dưới dạng a/1 nên số nguyên âm vẫn là số hữu tỉ âm.</div></div><div class="tutor-step"><span class="tutor-num">6</span><div>Câu e: Q còn chứa số 0, vì vậy không chỉ gồm số hữu tỉ âm và dương.</div></div></div></details>
+  <details class="tutor-box"><summary>👨‍🏫 Gia sư V27 • giải đúng bài này</summary><div class="tutor-steps"><div style="margin-bottom:8px"><b>🎯 Cách học:</b> Đọc từng bước và tự làm ra giấy trước khi mở đáp án.</div><div class="tutor-step"><span class="tutor-num">1</span><div>Xét từng nhận định riêng, không suy luận cả 5 câu cùng lúc.</div></div><div class="tutor-step"><span class="tutor-num">2</span><div>Câu a: trên trục số, mọi số âm nằm bên trái 0 còn số dương nằm bên phải 0 nên số hữu tỉ âm nhỏ hơn số hữu tỉ dương.</div></div><div class="tutor-step"><span class="tutor-num">3</span><div>Câu b: số tự nhiên không âm, còn số hữu tỉ âm nhỏ hơn 0 nên số hữu tỉ âm nhỏ hơn mọi số tự nhiên.</div></div><div class="tutor-step"><span class="tutor-num">4</span><div>Câu c: số 0 không phải số dương và cũng không phải số âm.</div></div><div class="tutor-step"><span class="tutor-num">5</span><div>Câu d: mọi số nguyên đều viết được dưới dạng a/1 nên số nguyên âm vẫn là số hữu tỉ âm.</div></div><div class="tutor-step"><span class="tutor-num">6</span><div>Câu e: Q còn chứa số 0, vì vậy không chỉ gồm số hữu tỉ âm và dương.</div></div></div></details>
   <details><summary>✅ Đáp án & giải thích</summary><p>a) Đúng. b) Đúng. c) Sai. d) Sai. e) Sai, vì Q còn chứa số 0.</p></details>
 </div>
 
@@ -495,7 +316,7 @@ function renderLesson1Rich(){
   <p>Điền kí hiệu thích hợp:</p>
   <p>−7 … N; &nbsp; −7 … Z; &nbsp; −7 … Q; &nbsp; −3/5 … Z; &nbsp; −3/5 … Q.</p>
   <details><summary>💡 Gợi ý</summary><p>N: số tự nhiên; Z: số nguyên; Q: số hữu tỉ.</p></details>
-  <details class="tutor-box"><summary>👨‍🏫 Gia sư giải theo đúng bài này</summary><div class="tutor-steps"><div style="margin-bottom:8px"><b>🎯 Cách học:</b> Đọc từng bước và tự làm ra giấy trước khi mở đáp án.</div><div class="tutor-step"><span class="tutor-num">1</span><div>Xét −7 trước: −7 không thuộc N vì N gồm các số tự nhiên không âm.</div></div><div class="tutor-step"><span class="tutor-num">2</span><div>−7 là số nguyên nên −7 ∈ Z.</div></div><div class="tutor-step"><span class="tutor-num">3</span><div>Mọi số nguyên đều là số hữu tỉ vì −7 = −7/1, nên −7 ∈ Q.</div></div><div class="tutor-step"><span class="tutor-num">4</span><div>−3/5 không phải số nguyên nên −3/5 ∉ Z.</div></div><div class="tutor-step"><span class="tutor-num">5</span><div>−3/5 có dạng a/b với a,b nguyên và b≠0 nên −3/5 ∈ Q.</div></div></div></details>
+  <details class="tutor-box"><summary>👨‍🏫 Gia sư V27 • giải đúng bài này</summary><div class="tutor-steps"><div style="margin-bottom:8px"><b>🎯 Cách học:</b> Đọc từng bước và tự làm ra giấy trước khi mở đáp án.</div><div class="tutor-step"><span class="tutor-num">1</span><div>Xét −7 trước: −7 không thuộc N vì N gồm các số tự nhiên không âm.</div></div><div class="tutor-step"><span class="tutor-num">2</span><div>−7 là số nguyên nên −7 ∈ Z.</div></div><div class="tutor-step"><span class="tutor-num">3</span><div>Mọi số nguyên đều là số hữu tỉ vì −7 = −7/1, nên −7 ∈ Q.</div></div><div class="tutor-step"><span class="tutor-num">4</span><div>−3/5 không phải số nguyên nên −3/5 ∉ Z.</div></div><div class="tutor-step"><span class="tutor-num">5</span><div>−3/5 có dạng a/b với a,b nguyên và b≠0 nên −3/5 ∈ Q.</div></div></div></details>
   <details><summary>✅ Đáp án</summary><p>−7 ∉ N; −7 ∈ Z; −7 ∈ Q; −3/5 ∉ Z; −3/5 ∈ Q.</p></details>
 </div>
 
@@ -503,7 +324,7 @@ function renderLesson1Rich(){
   <h4>📘 Bài 1.3 • Nối với nhận định đúng</h4>
   <p>Phân loại các số: 0/(−8); −7/(−5); −2/9; 5/0 theo các nhóm: số hữu tỉ âm, số hữu tỉ dương, không âm cũng không dương, hoặc không phải số hữu tỉ.</p>
   <details><summary>💡 Gợi ý</summary><p>Nhớ quy tắc dấu: âm chia âm được số dương. Phân số có mẫu 0 không xác định. Số 0 không dương cũng không âm.</p></details>
-  <details class="tutor-box"><summary>👨‍🏫 Gia sư giải theo đúng bài này</summary><div class="tutor-steps">
+  <details class="tutor-box"><summary>👨‍🏫 Gia sư V27 • giải đúng bài này</summary><div class="tutor-steps">
     <div class="tutor-step"><span class="tutor-num">1</span><div>0/(−8)=0 nên thuộc Q nhưng không phải số hữu tỉ âm hay dương.</div></div>
     <div class="tutor-step"><span class="tutor-num">2</span><div>−7/(−5)=7/5=1,4. Hai dấu âm triệt tiêu nhau nên đây là <b>số hữu tỉ dương</b>.</div></div>
     <div class="tutor-step"><span class="tutor-num">3</span><div>−2/9 có tử âm, mẫu dương nên giá trị âm: đây là <b>số hữu tỉ âm</b>.</div></div>
@@ -518,7 +339,7 @@ function renderLesson1Rich(){
      b) −19/35 và −13/21<br>
      c) 6/73 và 9/82</p>
   <details><summary>💡 Gợi ý</summary><p>Câu a xét dấu. Câu b, c có thể nhân chéo vì các mẫu đều dương.</p></details>
-  <details class="tutor-box"><summary>👨‍🏫 Gia sư giải theo đúng bài này</summary><div class="tutor-steps"><div style="margin-bottom:8px"><b>🎯 Cách học:</b> Đọc từng bước và tự làm ra giấy trước khi mở đáp án.</div><div class="tutor-step"><span class="tutor-num">1</span><div>Câu a: −57/2021 là số âm còn 1/6345 là số dương; số âm luôn nhỏ hơn số dương.</div></div><div class="tutor-step"><span class="tutor-num">2</span><div>Câu b: hai mẫu đều dương nên có thể nhân chéo: (−19)×21 = −399 và (−13)×35 = −455. Vì −399 > −455 nên −19/35 > −13/21.</div></div><div class="tutor-step"><span class="tutor-num">3</span><div>Câu c: nhân chéo 6×82 = 492 và 9×73 = 657. Vì 492 < 657 nên 6/73 < 9/82.</div></div><div class="tutor-step"><span class="tutor-num">4</span><div>Cuối cùng kiểm tra dấu và chiều bất đẳng thức một lần nữa.</div></div></div></details>
+  <details class="tutor-box"><summary>👨‍🏫 Gia sư V27 • giải đúng bài này</summary><div class="tutor-steps"><div style="margin-bottom:8px"><b>🎯 Cách học:</b> Đọc từng bước và tự làm ra giấy trước khi mở đáp án.</div><div class="tutor-step"><span class="tutor-num">1</span><div>Câu a: −57/2021 là số âm còn 1/6345 là số dương; số âm luôn nhỏ hơn số dương.</div></div><div class="tutor-step"><span class="tutor-num">2</span><div>Câu b: hai mẫu đều dương nên có thể nhân chéo: (−19)×21 = −399 và (−13)×35 = −455. Vì −399 > −455 nên −19/35 > −13/21.</div></div><div class="tutor-step"><span class="tutor-num">3</span><div>Câu c: nhân chéo 6×82 = 492 và 9×73 = 657. Vì 492 < 657 nên 6/73 < 9/82.</div></div><div class="tutor-step"><span class="tutor-num">4</span><div>Cuối cùng kiểm tra dấu và chiều bất đẳng thức một lần nữa.</div></div></div></details>
   <details><summary>✅ Đáp án & lời giải</summary>
     <p>a) −57/2021 &lt; 1/6345.<br>
        b) −19/35 &gt; −13/21 vì −19×21 = −399 &gt; −455 = −13×35.<br>
@@ -531,7 +352,7 @@ function renderLesson1Rich(){
   <p>Sắp xếp các thời gian mở màn trập sau từ <b>nhanh nhất đến chậm nhất</b>:
   1/125; 1/15; 0,125; 1/60; 0,004; 1/4 (giây).</p>
   <details><summary>💡 Gợi ý</summary><p>Màn trập nhanh hơn tương ứng với thời gian mở nhỏ hơn. Có thể đổi tất cả sang số thập phân.</p></details>
-  <details class="tutor-box"><summary>👨‍🏫 Gia sư giải theo đúng bài này</summary><div class="tutor-steps"><div style="margin-bottom:8px"><b>🎯 Cách học:</b> Đọc từng bước và tự làm ra giấy trước khi mở đáp án.</div><div class="tutor-step"><span class="tutor-num">1</span><div>Đổi các thời gian về số thập phân: 1/125=0,008; 1/15≈0,0667; 0,125; 1/60≈0,0167; 0,004; 1/4=0,25.</div></div><div class="tutor-step"><span class="tutor-num">2</span><div>Màn trập càng nhanh thì thời gian mở càng nhỏ.</div></div><div class="tutor-step"><span class="tutor-num">3</span><div>Sắp xếp các số từ nhỏ đến lớn: 0,004 < 0,008 < 0,0167 < 0,0667 < 0,125 < 0,25.</div></div><div class="tutor-step"><span class="tutor-num">4</span><div>Đổi lại về dạng đề bài để ghi thứ tự nhanh → chậm.</div></div></div></details>
+  <details class="tutor-box"><summary>👨‍🏫 Gia sư V27 • giải đúng bài này</summary><div class="tutor-steps"><div style="margin-bottom:8px"><b>🎯 Cách học:</b> Đọc từng bước và tự làm ra giấy trước khi mở đáp án.</div><div class="tutor-step"><span class="tutor-num">1</span><div>Đổi các thời gian về số thập phân: 1/125=0,008; 1/15≈0,0667; 0,125; 1/60≈0,0167; 0,004; 1/4=0,25.</div></div><div class="tutor-step"><span class="tutor-num">2</span><div>Màn trập càng nhanh thì thời gian mở càng nhỏ.</div></div><div class="tutor-step"><span class="tutor-num">3</span><div>Sắp xếp các số từ nhỏ đến lớn: 0,004 < 0,008 < 0,0167 < 0,0667 < 0,125 < 0,25.</div></div><div class="tutor-step"><span class="tutor-num">4</span><div>Đổi lại về dạng đề bài để ghi thứ tự nhanh → chậm.</div></div></div></details>
   <details><summary>✅ Đáp án & lời giải</summary><p>0,004 &lt; 1/125 &lt; 1/60 &lt; 1/15 &lt; 0,125 &lt; 1/4. Vì vậy thứ tự nhanh → chậm chính là thứ tự trên.</p></details>
 </div>
 
@@ -543,7 +364,7 @@ function renderLesson1Rich(){
   ──|──|──|──|──|──|──|──|──→
   </div>
   <details><summary>💡 Gợi ý</summary><p>Mỗi khoảng nhỏ bằng 1/6. Đếm số khoảng từ 0 đến từng điểm.</p></details>
-  <details class="tutor-box"><summary>👨‍🏫 Gia sư giải theo đúng bài này</summary><div class="tutor-steps"><div style="margin-bottom:8px"><b>🎯 Cách học:</b> Đọc từng bước và tự làm ra giấy trước khi mở đáp án.</div><div class="tutor-step"><span class="tutor-num">1</span><div>Từ 0 đến 1 có 6 khoảng bằng nhau nên mỗi khoảng là 1/6.</div></div><div class="tutor-step"><span class="tutor-num">2</span><div>A nằm 3 khoảng bên trái 0: A=−3/6=−1/2.</div></div><div class="tutor-step"><span class="tutor-num">3</span><div>B nằm 2 khoảng bên trái 0: B=−2/6=−1/3.</div></div><div class="tutor-step"><span class="tutor-num">4</span><div>C nằm 2 khoảng bên phải 0: C=2/6=1/3.</div></div><div class="tutor-step"><span class="tutor-num">5</span><div>D nằm 1 khoảng bên phải 1: D=1+1/6=7/6.</div></div></div></details>
+  <details class="tutor-box"><summary>👨‍🏫 Gia sư V27 • giải đúng bài này</summary><div class="tutor-steps"><div style="margin-bottom:8px"><b>🎯 Cách học:</b> Đọc từng bước và tự làm ra giấy trước khi mở đáp án.</div><div class="tutor-step"><span class="tutor-num">1</span><div>Từ 0 đến 1 có 6 khoảng bằng nhau nên mỗi khoảng là 1/6.</div></div><div class="tutor-step"><span class="tutor-num">2</span><div>A nằm 3 khoảng bên trái 0: A=−3/6=−1/2.</div></div><div class="tutor-step"><span class="tutor-num">3</span><div>B nằm 2 khoảng bên trái 0: B=−2/6=−1/3.</div></div><div class="tutor-step"><span class="tutor-num">4</span><div>C nằm 2 khoảng bên phải 0: C=2/6=1/3.</div></div><div class="tutor-step"><span class="tutor-num">5</span><div>D nằm 1 khoảng bên phải 1: D=1+1/6=7/6.</div></div></div></details>
   <details><summary>✅ Đáp án</summary><p>A = −1/2; B = −1/3; C = 1/3; D = 7/6.</p></details>
 </div>
 
@@ -551,7 +372,7 @@ function renderLesson1Rich(){
   <h4>📘 Bài 1.7 • Biểu diễn trên trục số</h4>
   <p>Vẽ một trục số và biểu diễn hai số <b>−4/5</b> và <b>1/2</b>.</p>
   <details><summary>💡 Gợi ý</summary><p>Chia đơn vị thành các phần bằng nhau; −4/5 nằm bên trái 0, còn 1/2 nằm bên phải 0.</p></details>
-  <details class="tutor-box"><summary>👨‍🏫 Gia sư giải theo đúng bài này</summary><div class="tutor-steps"><div style="margin-bottom:8px"><b>🎯 Cách học:</b> Đọc từng bước và tự làm ra giấy trước khi mở đáp án.</div><div class="tutor-step"><span class="tutor-num">1</span><div>Với −4/5, chia đoạn từ −1 đến 0 thành 5 phần bằng nhau.</div></div><div class="tutor-step"><span class="tutor-num">2</span><div>Từ 0 đi sang trái 4 phần để đặt điểm −4/5.</div></div><div class="tutor-step"><span class="tutor-num">3</span><div>Với 1/2, chia đoạn từ 0 đến 1 thành 2 phần bằng nhau.</div></div><div class="tutor-step"><span class="tutor-num">4</span><div>Từ 0 đi sang phải 1 phần để đặt điểm 1/2.</div></div></div></details>
+  <details class="tutor-box"><summary>👨‍🏫 Gia sư V27 • giải đúng bài này</summary><div class="tutor-steps"><div style="margin-bottom:8px"><b>🎯 Cách học:</b> Đọc từng bước và tự làm ra giấy trước khi mở đáp án.</div><div class="tutor-step"><span class="tutor-num">1</span><div>Với −4/5, chia đoạn từ −1 đến 0 thành 5 phần bằng nhau.</div></div><div class="tutor-step"><span class="tutor-num">2</span><div>Từ 0 đi sang trái 4 phần để đặt điểm −4/5.</div></div><div class="tutor-step"><span class="tutor-num">3</span><div>Với 1/2, chia đoạn từ 0 đến 1 thành 2 phần bằng nhau.</div></div><div class="tutor-step"><span class="tutor-num">4</span><div>Từ 0 đi sang phải 1 phần để đặt điểm 1/2.</div></div></div></details>
   <details><summary>✅ Kiểm tra kết quả</summary><p>Điểm −4/5 cách 0 bốn phần năm đơn vị về bên trái; điểm 1/2 cách 0 nửa đơn vị về bên phải.</p></details>
 </div>
 
@@ -559,7 +380,7 @@ function renderLesson1Rich(){
   <h4>📘 Bài 1.8 • Tìm phân số thỏa điều kiện</h4>
   <p>Tìm hai phân số có <b>mẫu bằng 7</b>, lớn hơn −3/8 và nhỏ hơn −1/8.</p>
   <details><summary>💡 Gợi ý</summary><p>Đặt phân số cần tìm là n/7 rồi tìm số nguyên n sao cho −3/8 &lt; n/7 &lt; −1/8.</p></details>
-  <details class="tutor-box"><summary>👨‍🏫 Gia sư giải theo đúng bài này</summary><div class="tutor-steps"><div style="margin-bottom:8px"><b>🎯 Cách học:</b> Đọc từng bước và tự làm ra giấy trước khi mở đáp án.</div><div class="tutor-step"><span class="tutor-num">1</span><div>Đặt phân số cần tìm là n/7 với n là số nguyên.</div></div><div class="tutor-step"><span class="tutor-num">2</span><div>Từ −3/8 < n/7 < −1/8, nhân cả ba vế với 56>0 nên chiều bất đẳng thức giữ nguyên.</div></div><div class="tutor-step"><span class="tutor-num">3</span><div>Ta được −21 < 8n < −7.</div></div><div class="tutor-step"><span class="tutor-num">4</span><div>Chia cho 8: −21/8 < n < −7/8, tức −2,625 < n < −0,875.</div></div><div class="tutor-step"><span class="tutor-num">5</span><div>Các số nguyên thỏa là n=−2 và n=−1, nên hai phân số là −2/7 và −1/7.</div></div></div></details>
+  <details class="tutor-box"><summary>👨‍🏫 Gia sư V27 • giải đúng bài này</summary><div class="tutor-steps"><div style="margin-bottom:8px"><b>🎯 Cách học:</b> Đọc từng bước và tự làm ra giấy trước khi mở đáp án.</div><div class="tutor-step"><span class="tutor-num">1</span><div>Đặt phân số cần tìm là n/7 với n là số nguyên.</div></div><div class="tutor-step"><span class="tutor-num">2</span><div>Từ −3/8 < n/7 < −1/8, nhân cả ba vế với 56>0 nên chiều bất đẳng thức giữ nguyên.</div></div><div class="tutor-step"><span class="tutor-num">3</span><div>Ta được −21 < 8n < −7.</div></div><div class="tutor-step"><span class="tutor-num">4</span><div>Chia cho 8: −21/8 < n < −7/8, tức −2,625 < n < −0,875.</div></div><div class="tutor-step"><span class="tutor-num">5</span><div>Các số nguyên thỏa là n=−2 và n=−1, nên hai phân số là −2/7 và −1/7.</div></div></div></details>
   <details><summary>✅ Đáp án & lời giải</summary><p>Ta có −2,625 &lt; n &lt; −0,875 nên n = −2 hoặc −1. Hai phân số là <b>−2/7 và −1/7</b>.</p></details>
 </div>
 
@@ -568,7 +389,7 @@ function renderLesson1Rich(){
   <p>Dữ liệu 5 mùa giải: 2020–2021: 30 bàn/35 trận; 2019–2020: 25/33; 2018–2019: 36/34; 2017–2018: 34/36; 2016–2017: 37/34.</p>
   <p>Hiệu suất = số bàn thắng / số trận. Hãy sắp xếp hiệu suất từ bé đến lớn và xác định mùa có hiệu suất tốt nhất.</p>
   <details><summary>💡 Gợi ý</summary><p>Tính hoặc so sánh các tỉ số: 30/35, 25/33, 36/34, 34/36, 37/34.</p></details>
-  <details class="tutor-box"><summary>👨‍🏫 Gia sư giải theo đúng bài này</summary><div class="tutor-steps"><div style="margin-bottom:8px"><b>🎯 Cách học:</b> Đọc từng bước và tự làm ra giấy trước khi mở đáp án.</div><div class="tutor-step"><span class="tutor-num">1</span><div>Tính hiệu suất từng mùa bằng số bàn thắng chia số trận.</div></div><div class="tutor-step"><span class="tutor-num">2</span><div>2019–2020: 25/33≈0,758; 2020–2021: 30/35≈0,857.</div></div><div class="tutor-step"><span class="tutor-num">3</span><div>2017–2018: 34/36≈0,944; 2018–2019: 36/34≈1,059; 2016–2017: 37/34≈1,088.</div></div><div class="tutor-step"><span class="tutor-num">4</span><div>So sánh các số thập phân vừa tính để sắp xếp tăng dần.</div></div><div class="tutor-step"><span class="tutor-num">5</span><div>Mùa có tỉ số lớn nhất là mùa có hiệu suất ghi bàn tốt nhất.</div></div></div></details>
+  <details class="tutor-box"><summary>👨‍🏫 Gia sư V27 • giải đúng bài này</summary><div class="tutor-steps"><div style="margin-bottom:8px"><b>🎯 Cách học:</b> Đọc từng bước và tự làm ra giấy trước khi mở đáp án.</div><div class="tutor-step"><span class="tutor-num">1</span><div>Tính hiệu suất từng mùa bằng số bàn thắng chia số trận.</div></div><div class="tutor-step"><span class="tutor-num">2</span><div>2019–2020: 25/33≈0,758; 2020–2021: 30/35≈0,857.</div></div><div class="tutor-step"><span class="tutor-num">3</span><div>2017–2018: 34/36≈0,944; 2018–2019: 36/34≈1,059; 2016–2017: 37/34≈1,088.</div></div><div class="tutor-step"><span class="tutor-num">4</span><div>So sánh các số thập phân vừa tính để sắp xếp tăng dần.</div></div><div class="tutor-step"><span class="tutor-num">5</span><div>Mùa có tỉ số lớn nhất là mùa có hiệu suất ghi bàn tốt nhất.</div></div></div></details>
   <details><summary>✅ Đáp án & lời giải</summary>
     <p>25/33 ≈ 0,758;<br>
        30/35 = 6/7 ≈ 0,857;<br>
