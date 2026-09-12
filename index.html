@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Toán 7 • V15 • Kết nối tri thức</title>
+<title>Toán 7 • V16 • Kết nối tri thức</title>
 <style>
 :root{--bg:#f6f8fc;--card:#fff;--ink:#182033;--muted:#667085;--brand:#3457d5;--ok:#138a55;--bad:#c43b3b;--line:#e6eaf2}
 *{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink)}
@@ -48,16 +48,25 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding-top:28px}
 .tutor-num{min-width:28px;height:28px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:#e8eef8;font-weight:800}
 .tutor-check{margin-top:10px;padding:10px 12px;border-radius:10px;background:#f4f7f5}
 
+
+.practice-tutor{margin-top:9px;border:1px solid #cfe1ff;border-radius:12px;overflow:hidden;background:#fbfdff}
+.practice-tutor summary{cursor:pointer;padding:11px 13px;font-weight:800;background:#eef5ff}
+.practice-tutor .inner{padding:9px 14px 13px}
+.quiz-tutor{margin-top:10px;border:1px dashed #c7d6ef;border-radius:10px;padding:10px 12px;background:#fafcff}
+.quiz-tutor details summary{cursor:pointer;font-weight:800}
+.mistake-box{margin-top:8px;padding:9px 11px;border-radius:10px;background:#fff8e9}
+.check-box{margin-top:8px;padding:9px 11px;border-radius:10px;background:#f2f8f4}
+
 </style>
 </head>
 <body>
-<header><div class="head"><div class="logo">7</div><div><h1>Toán lớp 7</h1><div class="sub">Kết nối tri thức • V15 • Học – luyện – ôn tập – kiểm tra</div></div></div></header>
+<header><div class="head"><div class="logo">7</div><div><h1>Toán lớp 7</h1><div class="sub">Kết nối tri thức • V16 • Học – luyện – ôn tập – kiểm tra</div></div></div></header>
 <main>
 <section id="home">
 <div class="hero">
-<h2>Toán 7 • Kết nối tri thức <span style='font-size:14px;background:#fff;color:#3457d5;padding:4px 8px;border-radius:999px'>V15</span></h2>
-<p>Bám theo thứ tự 37 bài của SGK Kết nối tri thức. <b>V15 – Gia sư Toán 7 • rà soát toàn bộ bài SBT</b> theo SGK + SBT Kết nối tri thức, có kiến thức, ví dụ, luyện theo SBT, tự luyện và kiểm tra.</p>
-<div class="note" style="margin:12px 0"><b>Nguồn học:</b> SGK Toán 7 Tập 1–2 và Sách bài tập Toán 7 Tập 1–2, bộ Kết nối tri thức. Bài tự luyện trên web được biên soạn tương tự để học sinh tự làm. V12 bổ sung chế độ Gia sư: nhận dạng dạng toán, gợi ý, giải thích từng bước, kết quả và cách tự kiểm tra.</div><div class="progressbox"><div style="display:flex;justify-content:space-between;margin-bottom:7px"><b>Tiến độ</b><span id="progressText">0/37 bài</span></div><div class="bar"><span id="progressBar"></span></div></div>
+<h2>Toán 7 • Kết nối tri thức <span style='font-size:14px;background:#fff;color:#3457d5;padding:4px 8px;border-radius:999px'>V16</span></h2>
+<p>Bám theo thứ tự 37 bài của SGK Kết nối tri thức. <b>V16 – Gia sư Toán 7 • nâng cấp toàn bộ bài tập</b> theo SGK + SBT Kết nối tri thức, có kiến thức, ví dụ, luyện theo SBT, tự luyện và kiểm tra.</p>
+<div class="note" style="margin:12px 0"><b>Nguồn học:</b> SGK Toán 7 Tập 1–2 và Sách bài tập Toán 7 Tập 1–2, bộ Kết nối tri thức. Bài tự luyện trên web được biên soạn tương tự để học sinh tự làm. V16 nâng cấp toàn bộ bài tập: SBT, tự luyện và kiểm tra đều có hướng dẫn theo kiểu Gia sư; đáp án luôn nằm sau phần giải thích.</div><div class="progressbox"><div style="display:flex;justify-content:space-between;margin-bottom:7px"><b>Tiến độ</b><span id="progressText">0/37 bài</span></div><div class="bar"><span id="progressBar"></span></div></div>
 </div>
 <div class="tabs"><button class="tab active" onclick="filterPart(0,this)">Cả năm</button><button class="tab" onclick="filterPart(1,this)">Tập 1</button><button class="tab" onclick="filterPart(2,this)">Tập 2</button></div>
 <div id="chapters" class="grid"></div>
@@ -70,7 +79,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding-top:28px}
 </div>
 <div id="lessonContent"></div>
 </section>
-<footer>Web học Toán 7 • V15 • SGK + SBT + tự luyện</footer>
+<footer>Web học Toán 7 • V16 • SGK + SBT + tự luyện</footer>
 </main>
 
 <script>
@@ -178,25 +187,129 @@ function tutorBlock(it){
    ${steps.map((x,i)=>`<div class="tutor-step"><span class="tutor-num">${i+1}</span><div>${x}</div></div>`).join('')}
  </div></details>`;
 }
+
+function lessonTutorSteps(question,hint,answer){
+  const t=((question||'')+' '+(hint||'')).toLowerCase();
+  let steps=[];
+  if(t.includes('tam giác')||t.includes('góc')||t.includes('song song')||t.includes('vuông góc')||t.includes('phân giác')||t.includes('trung tuyến')||t.includes('trung trực')||t.includes('đường cao')){
+    steps=[
+      'Ghi Giả thiết – Kết luận và đánh dấu dữ kiện trực tiếp trên hình.',
+      'Xác định định lí/tính chất phù hợp: tổng góc, góc do hai đường song song, quan hệ cạnh–góc, hoặc trường hợp bằng nhau của tam giác.',
+      hint||'Tìm mối liên hệ hình học đầu tiên từ các dữ kiện đã cho.',
+      'Viết từng suy luận kèm lí do. Nếu xét hai tam giác, phải nêu đủ các yếu tố tương ứng trước khi kết luận bằng nhau.',
+      'Từ kết quả trung gian suy ra điều đề hỏi; kiểm tra lại thứ tự đỉnh, tên góc và tên cạnh.'
+    ];
+  }else if(t.includes('tỉ lệ thuận')||t.includes('tỉ lệ nghịch')||t.includes('tỉ lệ thức')||t.includes('dãy tỉ số')){
+    steps=[
+      'Xác định hai đại lượng hoặc các tỉ số mà đề đang liên hệ.',
+      hint||'Viết quan hệ tỉ lệ trước khi thay số.',
+      'Chọn công thức đúng: y=ax; xy=a; ad=bc; hoặc tính chất dãy tỉ số bằng nhau.',
+      'Thay dữ kiện để tìm hệ số/tỉ số chung hoặc đại lượng trung gian.',
+      'Tính đại lượng đề hỏi và thay ngược vào quan hệ ban đầu để kiểm tra.'
+    ];
+  }else if(t.includes('đa thức')||t.includes('đơn thức')||t.includes('biểu thức')||t.includes('lũy thừa')){
+    steps=[
+      'Sắp xếp biểu thức theo cấu trúc dễ nhìn; đánh dấu dấu của từng hạng tử.',
+      hint||'Xác định phép toán cần làm trước.',
+      'Thực hiện lũy thừa/nhân/chia trước; sau đó cộng trừ. Với đa thức chỉ gộp các hạng tử đồng dạng.',
+      'Viết mỗi phép biến đổi trên một dòng để tránh mất dấu hoặc nhảy bước.',
+      'Thu gọn xong mới thay giá trị hoặc kết luận; nếu có phép chia, kiểm tra bằng A=BQ+R.'
+    ];
+  }else if(t.includes('xác suất')||t.includes('biến cố')||t.includes('xúc xắc')||t.includes('quả cầu')||t.includes('thẻ')){
+    steps=[
+      'Xác định phép thử và các kết quả có thể xảy ra.',
+      'Mô tả biến cố bằng những kết quả thuận lợi.',
+      hint||'Phân loại biến cố trước khi tính.',
+      'Nếu các kết quả đồng khả năng: P = số kết quả thuận lợi / tổng số kết quả.',
+      'Kiểm tra P phải từ 0 đến 1; chắc chắn → 1, không thể → 0.'
+    ];
+  }else if(t.includes('biểu đồ')||t.includes('dữ liệu')||t.includes('phần trăm')||t.includes('bảng')){
+    steps=[
+      'Đọc tiêu đề, chú giải, đơn vị và trục của bảng/biểu đồ.',
+      hint||'Xác định đúng số liệu mà câu hỏi yêu cầu.',
+      'Nếu cần tỉ lệ: phần/tổng × 100%; nếu cần số lượng: tổng × tỉ lệ.',
+      'Tính từng đại lượng và giữ đúng đơn vị.',
+      'Chỉ đưa ra nhận xét trong phạm vi dữ liệu được cung cấp.'
+    ];
+  }else if(t.includes('thể tích')||t.includes('diện tích')||t.includes('hình hộp')||t.includes('lập phương')||t.includes('lăng trụ')||t.includes('bể')){
+    steps=[
+      'Tóm tắt các kích thước và đổi về cùng một đơn vị.',
+      hint||'Xác định đúng công thức hình học cần dùng.',
+      'Tính đại lượng trung gian như diện tích đáy hoặc chu vi đáy trước.',
+      'Thay số vào công thức chính rồi tính từng dòng.',
+      'Kiểm tra đơn vị: độ dài, diện tích và thể tích phải đúng loại.'
+    ];
+  }else if(t.includes('căn')||t.includes('số thực')||t.includes('vô tỉ')||t.includes('thập phân')||t.includes('giá trị tuyệt đối')){
+    steps=[
+      'Nhận dạng dạng số hoặc biểu thức trước khi biến đổi.',
+      hint||'Dùng tính chất tương ứng của căn, số thực, số thập phân hoặc giá trị tuyệt đối.',
+      'Biến đổi từng bước; với căn bậc hai số học nhớ kết quả luôn không âm.',
+      'Nếu ước lượng/làm tròn, giữ đủ chữ số đến bước cuối.',
+      'Kiểm tra điều kiện xác định và dấu của kết quả.'
+    ];
+  }else if(t.includes('tìm x')||t.includes('tìm n')||t.includes('tìm m')||t.includes('tìm p')||t.includes('tìm q')){
+    steps=[
+      'Viết lại điều kiện chứa ẩn thật rõ.',
+      hint||'Cô lập phần chứa ẩn trước.',
+      'Chuyển vế và đổi dấu đúng; với phân số nên quy đồng trước khi cộng/trừ.',
+      'Cô lập ẩn rồi thực hiện phép tính cuối.',
+      'Thay giá trị tìm được trở lại điều kiện ban đầu để kiểm tra.'
+    ];
+  }else{
+    steps=[
+      'Đọc đề và xác định chính xác đại lượng cần tìm.',
+      hint||'Chọn kiến thức/công thức phù hợp với dạng bài.',
+      'Viết phép tính hoặc suy luận đầu tiên ra một dòng riêng.',
+      'Tiếp tục từng bước, không gộp quá nhiều phép biến đổi vào một dòng.',
+      'Tự kiểm tra lại bằng dữ kiện ban đầu trước khi mở đáp án.'
+    ];
+  }
+  return steps;
+}
+function practiceTutorBlock(p){
+  const steps=lessonTutorSteps(p[0],p[1],p[2]);
+  return `<details class="practice-tutor"><summary>👨‍🏫 Gia sư hướng dẫn từng bước</summary><div class="inner">
+    <div><b>🎯 Cách học:</b> tự làm từng bước ra giấy. Phần đáp án nằm ở cuối, không xem trước.</div>
+    ${steps.map((x,i)=>`<div class="tutor-step"><span class="tutor-num">${i+1}</span><div>${x}</div></div>`).join('')}
+    <div class="mistake-box"><b>⚠️ Lỗi dễ mắc:</b> làm tắt quá nhiều bước, sai dấu, quên điều kiện hoặc quên đơn vị.</div>
+    <div class="check-box"><b>☑ Tự kiểm tra:</b> đã dùng đúng công thức/định lí? đã ghi đủ bước? kết quả có hợp lí với đề?</div>
+  </div></details>`;
+}
+function quizTutorBlock(q){
+  const steps=lessonTutorSteps(q[0],q[3],q[1][q[2]]);
+  return `<div class="quiz-tutor"><details><summary>👨‍🏫 Xem cách suy luận câu này</summary>
+    ${steps.map((x,i)=>`<div class="tutor-step"><span class="tutor-num">${i+1}</span><div>${x}</div></div>`).join('')}
+    <div class="check-box"><b>Đáp án đúng:</b> ${q[1][q[2]]}. <b>Giải thích:</b> ${q[3]}</div>
+  </details></div>`;
+}
+function exampleTutorBlock(text){
+  const steps=lessonTutorSteps(text,'Quan sát dữ kiện và phép biến đổi ngay trong ví dụ.','');
+  return `<details class="practice-tutor"><summary>🧠 Vì sao làm như vậy?</summary><div class="inner">
+    ${steps.slice(0,4).map((x,i)=>`<div class="tutor-step"><span class="tutor-num">${i+1}</span><div>${x}</div></div>`).join('')}
+  </div></details>`;
+}
 function renderStudyLesson(n){
  const d=STUDY[n];
  const quizData = d.quiz || (LESSONS[n] ? LESSONS[n].quiz : []);
  let html=`
  <div class="card" style="margin-top:14px"><h3 style="margin-top:0">🎯 Mục tiêu Bài ${n}</h3><p>${d.goal}</p></div>
- <div class="note" style="margin-top:12px"><b>Cách học:</b> Học kiến thức → xem ví dụ → làm SBT → chỉ mở <b>Gợi ý</b> khi bí → sau đó mở <b>Cách giải</b> để đối chiếu → làm bài tương tự → kiểm tra cuối bài.</div><div class="note" style="margin-top:10px"><b>🔎 Bản V13:</b> Phần SBT được tổ chức lại theo nguyên tắc <b>không đưa đáp án trước khi giải thích</b>. Học sinh mở Gợi ý → Gia sư giải từng bước → sau cùng mới mở Kết quả / kết luận.</div>
+ <div class="note" style="margin-top:12px"><b>Cách học V16:</b> Kiến thức → ví dụ có giải thích → SBT có Gia sư → tự luyện có Gia sư → kiểm tra có giải thích từng câu sau khi trả lời.</div>
+ <div class="note" style="margin-top:10px"><b>📌 Nguyên tắc:</b> Không đưa đáp án thay cho lời giải. Học sinh được hướng dẫn cách bắt đầu, cách biến đổi/suy luận, cách kiểm tra; kết quả chỉ mở sau cùng.</div>
  <h3 class="section-title">1. Kiến thức trọng tâm</h3>
  <div class="card"><ul style="line-height:1.8">${d.knowledge.map(x=>`<li>${x}</li>`).join('')}</ul></div>
  <h3 class="section-title">2. Ví dụ dễ hiểu</h3>
- ${d.examples.map((x,i)=>`<div class="example"><b>Ví dụ ${i+1}.</b> ${x}</div>`).join('<div style="height:8px"></div>')}
+ ${d.examples.map((x,i)=>`<div class="card" style="margin-top:9px"><div class="example"><b>Ví dụ ${i+1}.</b> ${x}</div>${exampleTutorBlock(x)}</div>`).join('')}
  <h3 class="section-title">3. 📗 Học cùng SBT • ${d.sbt_range}</h3>
- <div class="note"><b>V15 – đã rà soát toàn bộ phần Gia sư:</b> Mỗi bài SBT đi theo <b>đề tóm tắt → 💡 nhận dạng → 👨‍🏫 giải thích từng bước → ✅ kết quả → tự kiểm tra</b>. Học sinh nên tự làm trong sách trước rồi mới mở đáp án.</div>
+ <div class="note"><b>V16:</b> SBT giữ chuẩn <b>đề tóm tắt → gợi ý → Gia sư từng bước → kết quả cuối</b>. Đáp số được đối chiếu SBT; phần Gia sư là diễn giải để học sinh hiểu cách làm.</div>
  ${(SBT_DETAIL[n]||[]).length
    ? SBT_DETAIL[n].map(it=>`<div class="card" style="margin-top:10px"><p><b>📘 Bài ${it[0]}</b> • ${it[1]} <span style="font-size:.78em;padding:3px 7px;border-radius:999px;background:#eef8ef">✓ Đối chiếu đáp số SBT</span></p>${detailBlock('💡 Gợi ý 1 • Nhận dạng & bắt đầu',it[2])}${tutorBlock(it)}${detailBlock('✅ Kết quả / kết luận • chỉ mở sau khi đã xem lời giải',it[3])}</div>`).join('')
    : d.sbt_map.map((x,i)=>`<div class="card" style="margin-top:10px"><p><b>📘 ${x}</b></p>${detailBlock('💡 Gợi ý',sbtHint(d,x,i))}${detailBlock('✅ Cách giải dạng này',sbtGuide(d,x,i))}</div>`).join('')
  }
  <h3 class="section-title">4. ✏️ Bài tương tự để tự làm</h3>
- ${d.practice.map((p,i)=>`<div class="card" style="margin-top:10px"><p><b>Bài tự luyện ${i+1}.</b> ${p[0]}</p>${detailBlock('💡 Gợi ý',p[1])}${detailBlock('✅ Đáp án & lời giải',p[2])}</div>`).join('')}
+ <div class="note"><b>Mới ở V16:</b> Tất cả bài tự luyện đều có phần <b>👨‍🏫 Gia sư hướng dẫn từng bước</b>; đáp án được đặt sau phần hướng dẫn.</div>
+ ${d.practice.map((p,i)=>`<div class="card" style="margin-top:10px"><p><b>Bài tự luyện ${i+1}.</b> ${p[0]}</p>${detailBlock('💡 Gợi ý 1',p[1])}${practiceTutorBlock(p)}${detailBlock('✅ Đáp án & lời giải • mở sau cùng',p[2])}</div>`).join('')}
  <h3 class="section-title">5. 📝 Kiểm tra cuối bài • 10 câu</h3>
+ <div class="note">Sau khi chọn đáp án, web sẽ hiện <b>đúng/sai + giải thích + nút xem cách suy luận</b>. Vị trí đáp án vẫn được xáo trộn.</div>
  <div id="quiz"></div><div id="result"></div>`;
  document.getElementById('lessonContent').innerHTML=html;
  renderCustomQuiz(n,quizData);
@@ -206,17 +319,17 @@ function renderCustomQuiz(n, qs){
  qs.forEach((q,qi)=>{
    const order=q[1].map((_,i)=>i).sort(()=>Math.random()-.5);
    const div=document.createElement('div'); div.className='q';
-   div.innerHTML=`<p>Câu ${qi+1}. ${q[0]}</p><div class="answers">${order.map(i=>`<button class="ans" data-i="${i}">${q[1][i]}</button>`).join('')}</div><div class="feedback"></div>`;
+   div.innerHTML=`<p><b>Câu ${qi+1}.</b> ${q[0]}</p><div class="answers">${order.map(i=>`<button class="ans" data-i="${i}">${q[1][i]}</button>`).join('')}</div><div class="feedback"></div>`;
    div.querySelectorAll('.ans').forEach(b=>b.onclick=()=>{
      if(div.dataset.done)return;
      div.dataset.done=1; answered++;
      const chosen=+b.dataset.i;
      if(chosen===q[2]){score++; b.classList.add('correct')}
      else{b.classList.add('wrong'); const c=div.querySelector(`[data-i="${q[2]}"]`); if(c)c.classList.add('correct')}
-     div.querySelector('.feedback').textContent=(chosen===q[2]?'✓ Đúng. ':'✗ Chưa đúng. ')+q[3];
+     div.querySelector('.feedback').innerHTML=`<div style="margin-top:8px"><b>${chosen===q[2]?'✓ Đúng':'✗ Chưa đúng'}.</b> ${q[3]}</div>${quizTutorBlock(q)}`;
      if(answered===qs.length){
        completed.add(n); localStorage.setItem('toan7_done',JSON.stringify([...completed]));
-       document.getElementById('result').innerHTML=`<div class="result"><b>Kết quả: ${score}/${qs.length}</b><br>${score>=8?'Rất tốt!':score>=5?'Khá ổn. Hãy xem lại câu sai.':'Nên xem lại kiến thức, ví dụ và làm thêm bài tương tự.'}</div>`;
+       document.getElementById('result').innerHTML=`<div class="result"><b>Kết quả: ${score}/${qs.length}</b><br>${score>=8?'Rất tốt! Hãy xem phần suy luận của những câu còn phân vân.':score>=5?'Khá ổn. Hãy mở cách suy luận ở các câu sai.':'Nên quay lại ví dụ, SBT và bài tự luyện trước khi làm lại bài kiểm tra.'}</div>`;
      }
    });
    box.appendChild(div);
@@ -228,7 +341,7 @@ function renderLesson1Rich(){
    <h3 style="margin-top:0">🎯 Mục tiêu Bài 1</h3>
    <p>Nhận biết và biểu diễn được số hữu tỉ; nhận biết số đối; so sánh được hai số hữu tỉ; nhận biết số hữu tỉ dương, âm và số 0; đọc và biểu diễn số hữu tỉ trên trục số.</p>
  </div>
- <div class="note" style="margin-top:12px"><b>Cách học:</b> Đọc kiến thức → xem ví dụ → tự làm bài trên giấy → chỉ mở <b>Gợi ý</b> khi bí → cuối cùng mới mở <b>Đáp án & lời giải</b>.</div>
+ <div class="note" style="margin-top:12px"><b>Cách học V16:</b> Đọc kiến thức → xem ví dụ → tự làm trên giấy → mở Gợi ý → xem Gia sư từng bước → cuối cùng mới mở Đáp án.</div>
 
  <h3 class="section-title">1. Số hữu tỉ và tập hợp Q</h3>
  <div class="card">
